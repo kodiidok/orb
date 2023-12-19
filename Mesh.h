@@ -1,4 +1,6 @@
 
+#pragma once
+
 #ifndef MESH_H
 #define MESH_H
 
@@ -14,6 +16,10 @@ public:
 	void face(int v1, int v2, int v3, int v4);
 	void create();
 	void calculateNormals();
+
+	const std::vector<float>& getVertices() const {
+		return vertices;
+	}
 
 private:
 	std::vector<float> vertices;

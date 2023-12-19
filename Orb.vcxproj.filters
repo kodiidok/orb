@@ -24,6 +24,12 @@
     <ClCompile Include="KCube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="KOctagon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WatchTower.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -36,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="KCube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WatchTower.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

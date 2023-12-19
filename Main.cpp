@@ -6,6 +6,8 @@
 
 #include "Mesh.h"
 #include "KCube.h"
+#include "KOctagon.h"
+#include "WatchTower.h"
 #include "Materials.h"
 
 int window_height = 480;
@@ -22,7 +24,7 @@ void init() {
 	glClearDepth(1);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
-	glShadeModel(GL_FLAT);
+	glShadeModel(GL_SMOOTH);
 }
 
 void text(float x, float y, float z, const std::string& text) {
@@ -203,6 +205,13 @@ void display() {
 	Mesh cubeMesh;
 	KCube::create(cubeMesh, 1.0);
 	cubeMesh.create();
+
+	WatchTower watchTower;
+	glPushMatrix();
+		glTranslatef(0.0f, 1.0f, 0.0f);
+		glScalef(2.0f, 2.0f, 2.0f);
+		watchTower.roof();
+	glPopMatrix();
 
 	glPopMatrix();
 

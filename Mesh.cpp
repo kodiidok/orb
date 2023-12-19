@@ -13,7 +13,7 @@ void Mesh::vertex(float x, float y, float z) {
     vertices.push_back(y);
     vertices.push_back(z);
 
-    std::cout << "Vertex: (" << x << ", " << y << ", " << z << ")\n";
+    //std::cout << "Vertex: (" << x << ", " << y << ", " << z << ")\n";
 }
 
 void Mesh::face(int v1, int v2, int v3, int v4) {
@@ -22,7 +22,7 @@ void Mesh::face(int v1, int v2, int v3, int v4) {
     faces.push_back(v3);
     faces.push_back(v4);
 
-    std::cout << "Face: " << v1 << ", " << v2 << ", " << v3 << ", " << v4 << "\n";
+    //std::cout << "Face: " << v1 << ", " << v2 << ", " << v3 << ", " << v4 << "\n";
 }
 
 void Mesh::calculateNormals() {
@@ -81,10 +81,10 @@ void Mesh::calculateNormals() {
         }
     }
 
-    std::cout << "Normals:\n";
-    for (size_t i = 0; i < normals.size(); i += 3) {
-        std::cout << "Normal: (" << normals[i] << ", " << normals[i + 1] << ", " << normals[i + 2] << ")\n";
-    }
+    //std::cout << "Normals:\n";
+    //for (size_t i = 0; i < normals.size(); i += 3) {
+    //    std::cout << "Normal: (" << normals[i] << ", " << normals[i + 1] << ", " << normals[i + 2] << ")\n";
+    //}
 }
 
 void Mesh::create() {

@@ -1,4 +1,6 @@
 
+#pragma once
+
 #ifndef KCUBE_H
 #define KCUBE_H
 

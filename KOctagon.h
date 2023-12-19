@@ -1,4 +1,5 @@
 
+#pragma once
 
 #ifndef KOCTAGON_H
 #define KOCTAGON_H
@@ -11,7 +12,7 @@ public:
 	KOctagon();
 	~KOctagon();
 
-	static void create(Mesh& mesh, float size);
+	static void createFlatRing(Mesh& mesh, float scale_factor, float distortion);
 private:
 
 };
