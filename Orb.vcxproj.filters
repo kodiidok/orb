@@ -36,6 +36,9 @@
     <ClCompile Include="Materials.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Axes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -54,6 +57,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Lights.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Axes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
