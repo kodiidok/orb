@@ -1,27 +1,23 @@
-
 #pragma once
 
 #ifndef MATERIALS_H
 #define MATERIALS_H
 
+#include <vector>
 #include <GL/glut.h>
 
-namespace Materials {
+using namespace std;
 
-    inline void defaultWhiteMaterial() {
-        GLfloat material_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
-        GLfloat material_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-        GLfloat material_shininess = 50.0;
-        GLfloat material_ambient[] = { 1.0, 1.0, 1.0, 1.0 };
-        GLfloat material_emission[] = { 0.0, 0.0, 0.0, 1.0 };
+struct Material
+{
+	vector<float> amb;
+	vector<float> diff;
+	vector<float> spec;
+	vector<float> shin;
+};
 
-        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, material_diffuse);
-        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, material_specular);
-        glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, material_shininess);
-        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, material_ambient);
-        glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, material_emission);
-    }
+void addMaterial(const Material& material);
 
-}
+extern const Material WHITE_MATTE;
 
-#endif
+#endif // !MATERIALS_HATERIALS_H

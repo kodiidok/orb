@@ -21,13 +21,19 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KCube.cpp">
+    <ClCompile Include="Colors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KOctagon.cpp">
+    <ClCompile Include="Vertices.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WatchTower.cpp">
+    <ClCompile Include="Cube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Lights.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Materials.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,17 +41,24 @@
     <ClInclude Include="Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Vertices.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Colors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Materials.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="KOctagon.h">
+    <ClInclude Include="Lights.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="KCube.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WatchTower.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="temp.txt" />
+    <Text Include="mesh.txt" />
   </ItemGroup>
 </Project>

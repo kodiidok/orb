@@ -5,6 +5,9 @@
 #define MESH_H
 
 #include <vector>
+#include "Vertices.h"
+
+using namespace std;
 
 class Mesh
 {
@@ -12,19 +15,14 @@ public:
 	Mesh();
 	~Mesh();
 
-	void vertex(float x, float y, float z);
-	void face(int v1, int v2, int v3, int v4);
-	void create();
-	void calculateNormals();
+	void vertex(Point3D v);
 
-	const std::vector<float>& getVertices() const {
+	const vector<Point3D>& getVertices() const {
 		return vertices;
 	}
 
 private:
-	std::vector<float> vertices;
-	std::vector<int> faces;
-	std::vector<float> normals;
+	vector<Point3D> vertices;
 };
 
 #endif
