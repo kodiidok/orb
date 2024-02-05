@@ -1,8 +1,21 @@
 
 #include <math.h>
+#include <vector>
 #include <GL/glut.h>
 #include "Castle.h"
 #include "Constants.h"
+#include "Utils.h"
+
+using namespace std;
+
+vector<float> randomRotations;  // Store random rotations for each block
+
+void initRandomRotations(int numBlocks) {
+    randomRotations.clear();
+    for (int i = 0; i < numBlocks; ++i) {
+        randomRotations.push_back(generateRandomAngle());
+    }
+}
 
 void hexagon(float centerX, float centerZ, float sideLength) {
     float angle = 60.0; // Each interior angle of a regular hexagon
@@ -23,7 +36,6 @@ void hexagon(float centerX, float centerZ, float sideLength) {
     }
     glEnd();
 }
-
 
 void hexagonBlock(float centerX, float centerZ, float sideLength, float height, float innerRadius) {
 
@@ -67,18 +79,46 @@ void hexagonBlock(float centerX, float centerZ, float sideLength, float height, 
     }
 }
 
-void arch(float centerX, float centerY, float radius) {
+void arch(float centerX, float centerY, float width, float height) {
     float angle = 15.0; // Each interior angle of a regular hexagon
-    float inc = 0.0f;
+    float angleInc = 0.0f;
+    float heightInc = 0.0f;
+    float blockSize = 0.25f;
 
-    for (int i = 0; i <= 180/angle; ++i) {
+    int nBlocks = static_cast<int>(2 * height / blockSize);
+
+    // Check if randomRotations is empty, if so, initialize it
+    if (randomRotations.empty()) {
+        initRandomRotations(nBlocks);
+    }
+
+    glPushMatrix();
+    glTranslatef(0.0f, height, 0.0f);
+    for (int i = 0; i <= 180 / angle; ++i) {
         glPushMatrix();
-        glRotatef(inc, 0.0f, 0.0f, 1.0f);
-        glTranslatef(radius, 0.0f, 0.0f);
-        glutSolidCube(0.25);
+        glRotatef(angleInc, 0.0f, 0.0f, 1.0f);
+        glTranslatef(width / 2, 0.0f, 0.0f);
+        glutSolidCube(blockSize);
         glPopMatrix();
 
-        inc += angle;
+        angleInc += angle;
+    }
+    glPopMatrix();
+
+    for (int i = 0; i < nBlocks / 2; i++) {
+        glPushMatrix();
+        glTranslatef(width / 2, heightInc, 0.0f);
+        glRotatef(randomRotations[i], 0.0f, 1.0f, 0.0f);
+        glutSolidCube(blockSize);
+        glPopMatrix();
+
+        glPushMatrix();
+        glTranslatef(-(width / 2), heightInc, 0.0f);
+        glRotatef(randomRotations[i] * 0.5, 0.0f, 1.0f, 0.0f);
+        glutSolidCube(blockSize);
+        glPopMatrix();
+
+        heightInc += blockSize;
     }
 }
 

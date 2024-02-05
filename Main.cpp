@@ -76,7 +76,7 @@ void scene() {
 
 	//hexagonBlock(0, 0, 1, 1, 0.95);
 
-	arch(0, 0, 1);
+	arch(0, 0, 1, 1);
 
 	glDisable(GL_NORMALIZE);
 	glPopMatrix();

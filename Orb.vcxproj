@@ -141,6 +141,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Materials.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Vertices.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +153,7 @@
     <ClInclude Include="Lights.h" />
     <ClInclude Include="Materials.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="Vertices.h" />
   </ItemGroup>
   <ItemGroup>
