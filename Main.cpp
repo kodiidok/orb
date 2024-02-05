@@ -11,7 +11,7 @@
 #include "Lights.h"
 #include "Axes.h"
 #include "Cube.h"
-
+#include "Castle.h"
 
 using namespace std;
 
@@ -63,27 +63,18 @@ void lights() {
 	spotLight(GL_LIGHT0, pos0, diff0, dir0, cutoff0);
 }
 
-void hexagon(double centerX, double centerY, double sideLength) {
-	double angle = 60.0; // Each interior angle of a regular hexagon
-	glBegin(GL_LINE_LOOP);
-	for (int i = 0; i < 6; ++i) {
-		double x = centerX + sideLength * cos((angle * i) * M_PI / 180.0);
-		double y = centerY + sideLength * sin((angle * i) * M_PI / 180.0);
-		glVertex3f(x, y, 0);
-	}
-	glEnd();
-}
-
 void scene() {
 	glPushMatrix();
 	glEnable(GL_NORMALIZE);
 
 	addMaterial(WHITE_MATTE);
 	
-	/*Cube cube;
-	cube.draw();*/
+	//Cube cube;
+	//cube.draw();
 
-	hexagon(0, 0, 1);
+	//hexagon(0, 0, 1);
+
+	hexagonBlock(0, 0, 1, 1, 0.95);
 
 	glDisable(GL_NORMALIZE);
 	glPopMatrix();
