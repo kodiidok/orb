@@ -67,6 +67,19 @@ void hexagonBlock(float centerX, float centerZ, float sideLength, float height, 
     }
 }
 
+void arch(float centerX, float centerY, float radius) {
+    float angle = 15.0; // Each interior angle of a regular hexagon
+    float inc = 0.0f;
 
+    for (int i = 0; i <= 180/angle; ++i) {
+        glPushMatrix();
+        glRotatef(inc, 0.0f, 0.0f, 1.0f);
+        glTranslatef(radius, 0.0f, 0.0f);
+        glutSolidCube(0.25);
+        glPopMatrix();
+
+        inc += angle;
+    }
+}
 
 

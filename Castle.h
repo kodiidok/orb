@@ -5,5 +5,6 @@
 
 void hexagon(float centerX, float centerZ, float sideLength);
 void hexagonBlock(float centerX, float centerZ, float sideLength, float height, float innerRadius);
+void arch(float centerX, float centerY, float radius);
 
 #endif
