@@ -122,4 +122,62 @@ void arch(float centerX, float centerY, float width, float height) {
     }
 }
 
+void closedTowerBlock() {
+    
+}
+
+void singleDoorTowerBlock() {
+
+}
+
+void twoDoorTowerBlock(){
+
+}
+
+void openTowerBlock(){
+
+}
+
+void openedTowerWall(float centerX, float centerY, float openWidth, float openHeight) {
+    float angle = 15.0; // Each interior angle of a regular hexagon
+    float angleInc = 0.0f;
+    float heightInc = 0.0f;
+    float radius = openWidth / 2;
+    float segments = 180 / angle;
+
+    // Set polygon mode to draw wireframe
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    glPushMatrix();
+    glBegin(GL_QUAD_STRIP);
+
+    glVertex3f(0.5f, -1.0f, 0.0f);
+    glVertex3f(1.0f, -1.0f, 0.0f);
+
+    for (int i = 0; i <= segments; ++i) {
+        float x = centerX + radius * cos((angle * i) * M_PI / 180.0);
+        float _x = centerX + 2 * radius * cos((angle * i) * M_PI / 180.0);
+        float y = centerY + radius * sin((angle * i) * M_PI / 180.0);
+
+        //// Calculate the normal
+        //float normalX = 0.0f;
+        //float normalY = 1.0f;
+        //float normalZ = 0.0f;
+
+        //// Set the normal
+        //glNormal3f(normalX, normalY, normalZ);
+
+        glVertex3f(x, y, 0);
+        glVertex3f(_x, 2 * openHeight, 0);
+    }
+
+    glVertex3f(-0.5f, -1.0f, 0.0f);
+    glVertex3f(-1.0f, -1.0f, 0.0f);
+
+    glEnd();
+    glPopMatrix();
+
+    // Reset polygon mode to draw filled polygons
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
 
