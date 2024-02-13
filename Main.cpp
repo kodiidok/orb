@@ -210,14 +210,21 @@ vector<Point3D> quad() {
 	return v;
 };
 
-vector<Point3D> wallWithOpenArch(float w, float h, float cx, float cy, float cz, float radius, int segments) {
+vector<Point3D> wallPanelWithOpenArch(float w, float h, float cx, float cy, float cz, float radius, int segments, int flipNorm = 1) {
 	vector<Point3D> sc = semiCircle(cx, cy, cz, radius, segments);
+
+	// Add an element to the beginning
+	sc.insert(sc.begin(), { sc[0].x, -h, cz } );
+
+	// Add an element to the end
+	sc.push_back({ sc[sc.size() - 1].x, -h, cz });
+
 	vector<Point3D> result;
 
 	size_t changer = sc.size() / 4;
 
 	float offsetx = (radius + w) / changer;
-	float offsetyu = 0.0f;
+	float offsetyu = -h;
 	float offsetyd = 0.0f;
 
 	glBegin(GL_QUAD_STRIP);
@@ -229,21 +236,35 @@ vector<Point3D> wallWithOpenArch(float w, float h, float cx, float cy, float cz,
 
 		glVertex3f(x, y, z);
 		result.push_back({ x, y, z });
+		glNormal3f(0.0f, 0.0f, flipNorm * 1.0f);
 
-		if (i <= changer) {
+		if (i <= changer + 1) {
 			glVertex3f(radius + w, cy + offsetyu, z);
 			result.push_back({ radius + w, cy + offsetyu, z });
-			offsetyu += h / changer;
-		} 
-		else if (i < 3 * changer) {
+			glNormal3f(0.0f, 0.0f, flipNorm * 1.0f);
+			if (i == 0) {
+				offsetyu += 2 * (h / changer);
+			}
+			else {
+				offsetyu += h / changer;
+			}
+		}
+		else if (i < 3 * changer + 1) {
 			glVertex3f(radius + w - offsetx, h, z);
 			result.push_back({ radius + w - offsetx, h, z });
+			glNormal3f(0.0f, 0.0f, flipNorm * 1.0f);
 			offsetx += (w + radius) / changer;
 		}
 		else {
 			glVertex3f(-(radius + w), h - offsetyd, z);
 			result.push_back({ -(radius + w), h - offsetyd, z });
-			offsetyd += h / changer;
+			glNormal3f(0.0f, 0.0f, flipNorm * 1.0f);
+			if (i == sc.size() - 2) {
+				offsetyd += 2 * (h / changer);
+			}
+			else {
+				offsetyd += h / changer;
+			}
 		}
 	}
 	glEnd();
@@ -251,15 +272,37 @@ vector<Point3D> wallWithOpenArch(float w, float h, float cx, float cy, float cz,
 	return result;
 }
 
+vector<vector<Point3D>> wallWithOpenArch(float w, float h, float cx, float cy, float thickness, float radius, int segments) {
+	
+	vector<Point3D> w1 = wallPanelWithOpenArch(w, h, cx, cy, -(thickness / 2), radius, segments);
+	vector<Point3D> w2 = wallPanelWithOpenArch(w, h, cx, cy, (thickness / 2), radius, segments);
+
+	glBegin(GL_QUAD_STRIP);
+	for (size_t i = 0; i < w1.size(); i += 2) {
+		glVertex3f(w1[i].x, w1[i].y, w1[i].z);
+		glVertex3f(w2[i].x, w2[i].y, w2[i].z);
+	}
+	glEnd();
+
+	glBegin(GL_QUAD_STRIP);
+	for (size_t i = 1; i < w1.size(); i += 2) {
+		glVertex3f(w1[i].x, w1[i].y, w1[i].z);
+		glVertex3f(w2[i].x, w2[i].y, w2[i].z);
+	}
+	glEnd();
+
+	return { w1, w2 };
+}
+
 void scene() {
 	glPushMatrix();
 	glEnable(GL_NORMALIZE);
 
-	addMaterial(DARK_GRAY_MATTE);
-
-	vector<Point3D> wwoa = wallWithOpenArch(0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.5f, 16);
-
 	addMaterial(WHITE_MATTE);
+
+	vector<vector<Point3D>> wall = wallWithOpenArch(0.5f, 1.0f, 0.0f, 0.0f, 0.5f, 0.3f, 16);
+
+
 	//for (size_t i = 0; i < wwoa.size(); i++) {
 	//	printf("%f, %f, %f\n", wwoa[i].x, wwoa[i].y, wwoa[i].z);
 	//	string label = "v" + to_string(i) + ", " + to_string(wwoa[i].x) + ", " + to_string(wwoa[i].y);
