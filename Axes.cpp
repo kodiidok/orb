@@ -36,3 +36,84 @@ void axes() {
 
 	glDisable(GL_COLOR_MATERIAL);
 }
+
+void cell(int u, int v) {
+	glBegin(GL_LINE_LOOP);
+	glVertex2f(u - 0.5f, v - 0.5f);
+	glVertex2f(u + 0.5f, v - 0.5f);
+	glVertex2f(u + 0.5f, v + 0.5f);
+	glVertex2f(u - 0.5f, v + 0.5f);
+	glEnd();
+}
+
+void grid() {
+	glEnable(GL_COLOR_MATERIAL);
+	int u = 0, v = 0, m = 0, n = 0;
+
+	glPushMatrix();
+	glColor3f(0.3f, 0.3f, 0.3f);
+
+	for (int i = 0; i < 10; i++) {
+
+		u = 0, v = 0;
+
+		for (int j = 0; j < 10; j++) {
+
+			cell(u, m);
+
+			if (v != u) {
+				cell(v, m);
+			}
+
+			if (m != n) {
+				cell(u, n);
+
+				if (v != u) {
+					cell(v, n);
+				}
+			}
+
+			u++;
+			v--;
+
+		}
+
+		m++;
+		n--;
+
+	}
+
+	glPopMatrix();
+	glDisable(GL_COLOR_MATERIAL);
+}
+
+void drawCartesianCoordinates() {
+	glEnable(GL_COLOR_MATERIAL);
+	// Set the line color
+	glColor3f(0.3f, 0.3f, 0.3f);
+
+	// Display tick marks on x-axis
+	for (int i = -10; i <= 10; ++i) {
+		glBegin(GL_LINES);
+		glVertex2f(i, -0.2);
+		glVertex2f(i, 0.2);
+		glEnd();
+	}
+
+	// Display tick marks on y-axis
+	for (int i = -10; i <= 10; ++i) {
+		glBegin(GL_LINES);
+		glVertex2f(-0.2, i);
+		glVertex2f(0.2, i);
+		glEnd();
+	}
+
+	// Display the axis labels
+	glColor3f(0.5f, 0.5f, 0.5f);
+	glRasterPos2f(10.2, 0.0);
+	glutBitmapCharacter(GLUT_BITMAP_8_BY_13, 'X');
+	glRasterPos2f(0.0, 10.2);
+	glutBitmapCharacter(GLUT_BITMAP_8_BY_13, 'Y');
+	
+	glDisable(GL_COLOR_MATERIAL);
+}

@@ -11,6 +11,8 @@ void closedTowerBlock();
 void singleDoorTowerBlock();
 void twoDoorTowerBlock();
 void openTowerBlock();
-void openedTowerWall(float centerX, float centerY, float width, float height);
+void openedTowerWall(float radius, float centerX, float centerY, float width, float height, float thickness);
+void openedTowerWallPanel(float centerX, float centerY, float openWidth, float openHeight, float thickness);
+void tower1(float radius, float centerX, float centerY, float openWidth, float openHeight, float thickness);
 
 #endif

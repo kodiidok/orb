@@ -20,3 +20,10 @@ const Material WHITE_MATTE = {
 	{0.0f, 0.0f, 0.0f, 1.0f},  // Specular (black for matte)
 	{0.0f}                      // Shininess (0 for matte)
 };
+
+const Material DARK_GRAY_MATTE = {
+	{0.3f, 0.3f, 0.3f, 1.0f},  // Ambient (white)
+	{1.0f, 1.0f, 1.0f, 1.0f},  // Diffuse (white)
+	{0.0f, 0.0f, 0.0f, 1.0f},  // Specular (black for matte)
+	{0.0f}                      // Shininess (0 for matte)
+};

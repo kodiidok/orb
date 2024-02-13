@@ -19,5 +19,6 @@ struct Material
 void addMaterial(const Material& material);
 
 extern const Material WHITE_MATTE;
+extern const Material DARK_GRAY_MATTE;
 
 #endif // !MATERIALS_HATERIALS_H

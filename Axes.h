@@ -9,5 +9,8 @@
 
 void axis(Point3D& p1, Point3D& p2, RGBcolor color);
 void axes();
+void drawCartesianCoordinates();
+void cell(int u, int v);
+void grid();
 
 #endif // !AXES_H
