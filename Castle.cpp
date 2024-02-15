@@ -3,10 +3,10 @@
 #include <math.h>
 #include <vector>
 #include <GL/glut.h>
-#include "Castle.h"
 #include "Constants.h"
 #include "Utils.h"
 #include "Vertices.h"
+#include "Castle.h"
 
 using namespace std;
 
@@ -124,144 +124,168 @@ void arch(float centerX, float centerY, float width, float height) {
     }
 }
 
-void closedTowerBlock() {
-    
-}
+vector<Point3D> circle(float centerx, float centery, float z, float radius, int segments) {
+    vector<Point3D> v;
 
-void singleDoorTowerBlock() {
-
-}
-
-void twoDoorTowerBlock(){
-
-}
-
-void openTowerBlock(){
-
-}
-
-void openedTowerWall(float radius, float centerX, float centerY, float openWidth, float openHeight, float thickness) {
-    float angle = 60.0f; // Each interior angle of a regular hexagon
-    float inc = 0.0f;
-    for (int i = 0; i < 6; ++i) {
-        glPushMatrix();
-        glRotatef(inc, 0.0f, 1.0f, 0.0f);
-        glTranslatef(0.0f, 0.0f, radius);
-        openedTowerWallPanel(centerX, centerX, openWidth, openHeight, thickness);
-        glPopMatrix();
-        inc += angle;
+    for (int i = 0; i < segments; ++i) {
+        float theta = 2.0f * M_PI * float(i) / float(segments);  // Angle for each segment
+        float x = centerx + radius * cos(theta);
+        float y = centery + radius * sin(theta);
+        Point3D p = { x, y, z };
+        v.push_back(p);
     }
+
+    return v;
 }
 
-void openedTowerWallPanel(float centerX, float centerY, float openWidth, float openHeight, float thickness) {
-    float angle = 15.0; // Each interior angle of a regular hexagon
-    float radius = openWidth / 2;
-    float segments = 180 / angle;
+vector<Point3D> drawCircle(GLenum mode, float centerx, float centery, float z, float radius, int segments) {
+    vector<Point3D> circ_coord = circle(centerx, centery, z, radius, segments);
+    glBegin(mode);
+    for (size_t i = 0; i < circ_coord.size(); ++i) {
+        const Point3D& c = circ_coord[i];
+        float x = c.x;
+        float y = c.y;
+        float z = c.z;
+        std::cout << "v" << i << ":\t" << x << ", " << y << ", " << z << '\n';
+        glVertex3f(x, y, z);
+    }
+    glEnd();
+    return circ_coord;
+}
 
-    vector<Point3D> outerV;
-    vector<Point3D> innerV;
+vector<Point3D> semiCircle(float centerx, float centery, float z, float radius, int segments) {
+    vector<Point3D> v;
 
-    outerV.clear();
-    innerV.clear();
+    for (int i = 0; i < 1 + (segments / 2); ++i) {
+        float theta = 2.0f * M_PI * float(i) / float(segments);  // Angle for each segment
+        float x = centerx + radius * cos(theta);
+        float y = centery + radius * sin(theta);
+        Point3D p = { x, y, z };
+        v.push_back(p);
+    }
 
-    for (int j = 0; j < 2; ++j) {
+    return v;
+}
 
-        float offset = (j == 0) ? thickness / 2 : -thickness / 2;
+vector<Point3D> drawSemiCircle(GLenum mode, float centerx, float centery, float z, float radius, int segments) {
+    vector<Point3D> semicirc_coord = semiCircle(centerx, centery, z, radius, segments);
+    glBegin(mode);
+    for (size_t i = 0; i < semicirc_coord.size(); ++i) {
+        const Point3D& c = semicirc_coord[i];
+        float x = c.x;
+        float y = c.y;
+        float z = c.z;
+        std::cout << "v" << i << ":\t" << x << ", " << y << ", " << z << '\n';
+        glVertex3f(x, y, z);
+    }
+    glEnd();
+    return semicirc_coord;
+}
 
-        if (j == 0) {
-            outerV.push_back({ 0.5f, -1.0f, offset });
-            outerV.push_back({ 1.0f, -1.0f, offset });
+vector<Point3D> wallPanelOpenArch(float w, float h, float cx, float cy, float cz, float radius, int segments) {
+    vector<Point3D> sc = semiCircle(cx, cy, cz, radius, segments);
 
+    // Add an element to the beginning
+    sc.insert(sc.begin(), { sc[0].x, -h, cz });
 
-            for (int i = 0; i <= segments; ++i) {
-                float x = centerX + radius * cos((angle * i) * M_PI / 180.0);
-                float _x = centerX + 2 * radius * cos((angle * i) * M_PI / 180.0);
-                float y = centerY + radius * sin((angle * i) * M_PI / 180.0);
+    // Add an element to the end
+    sc.push_back({ sc[sc.size() - 1].x, -h, cz });
 
-                outerV.push_back({ x, y, offset });
-                outerV.push_back({ _x, 2 * openHeight, offset });
+    vector<Point3D> result;
+
+    size_t changer = sc.size() / 4;
+
+    float offsetx = (radius + w) / changer;
+    float offsetyu = -h;
+    float offsetyd = 0.0f;
+
+    glBegin(GL_QUAD_STRIP);
+    for (size_t i = 0; i < sc.size(); i++) {
+        const Point3D& c = sc[i];
+        float x = c.x;
+        float y = c.y;
+        float z = c.z;
+
+        glVertex3f(x, y, z);
+        result.push_back({ x, y, z });
+
+        if (i <= changer + 1) {
+            glVertex3f(radius + w, cy + offsetyu, z);
+            result.push_back({ radius + w, cy + offsetyu, z });
+            if (i == 0) {
+                offsetyu += 2 * (h / changer);
             }
-
-            outerV.push_back({ -0.5f, -1.0f, offset });
-            outerV.push_back({ -1.0f, -1.0f, offset });
+            else {
+                offsetyu += h / changer;
+            }
+        }
+        else if (i < 3 * changer + 1) {
+            glVertex3f(radius + w - offsetx, h, z);
+            result.push_back({ radius + w - offsetx, h, z });
+            offsetx += (w + radius) / changer;
         }
         else {
-            innerV.push_back({ 0.5f, -1.0f, offset });
-            innerV.push_back({ 1.0f, -1.0f, offset });
-
-
-            for (int i = 0; i <= segments; ++i) {
-                float x = centerX + radius * cos((angle * i) * M_PI / 180.0);
-                float _x = centerX + 2 * radius * cos((angle * i) * M_PI / 180.0);
-                float y = centerY + radius * sin((angle * i) * M_PI / 180.0);
-
-                innerV.push_back({ x, y, offset });
-                innerV.push_back({ _x, 2 * openHeight, offset });
+            glVertex3f(-(radius + w), h - offsetyd, z);
+            result.push_back({ -(radius + w), h - offsetyd, z });
+            if (i == sc.size() - 2) {
+                offsetyd += 2 * (h / changer);
             }
-
-            innerV.push_back({ -0.5f, -1.0f, offset });
-            innerV.push_back({ -1.0f, -1.0f, offset });
+            else {
+                offsetyd += h / changer;
+            }
         }
     }
-
-    glBegin(GL_QUAD_STRIP);
-    for (int i = 0; i < outerV.size(); i++) {
-        glVertex3f(outerV[i].x, outerV[i].y, outerV[i].z);
-    }
     glEnd();
 
-    glBegin(GL_QUAD_STRIP);
-    for (int i = 0; i < innerV.size(); i++) {
-        glVertex3f(innerV[i].x, innerV[i].y, innerV[i].z);
-    }
-    glEnd();
-
-    int last = outerV.size() - 1;
-
-    glBegin(GL_QUAD_STRIP);
-
-    glVertex3f(outerV[2].x, outerV[2].y, outerV[2].z);
-    glVertex3f(innerV[2].x, innerV[2].y, innerV[2].z);
-
-    glVertex3f(outerV[0].x, outerV[0].y, outerV[0].z);
-    glVertex3f(innerV[0].x, innerV[0].y, innerV[0].z);
-
-    glVertex3f(outerV[1].x, outerV[1].y, outerV[1].z);
-    glVertex3f(innerV[1].x, innerV[1].y, innerV[1].z);
-
-    glVertex3f(outerV[3].x, outerV[3].y, outerV[3].z);
-    glVertex3f(innerV[3].x, innerV[3].y, innerV[3].z);
-
-    glVertex3f(outerV[last - 2].x, outerV[last - 2].y, outerV[last - 2].z);
-    glVertex3f(innerV[last - 2].x, innerV[last - 2].y, innerV[last - 2].z);
-
-    glVertex3f(outerV[last].x, outerV[last].y, outerV[last].z);
-    glVertex3f(innerV[last].x, innerV[last].y, innerV[last].z);
-
-    glVertex3f(outerV[last - 1].x, outerV[last - 1].y, outerV[last - 1].z);
-    glVertex3f(innerV[last - 1].x, innerV[last - 1].y, innerV[last - 1].z);
-
-    glVertex3f(outerV[last - 3].x, outerV[last - 3].y, outerV[last - 3].z);
-    glVertex3f(innerV[last - 3].x, innerV[last - 3].y, innerV[last - 3].z);
-
-    glEnd();
-
-    glBegin(GL_QUAD_STRIP);
-    for (int i = 2; i < last - 1; i++) {
-        if (i % 2 != 0) {
-            continue;
-        }
-        glVertex3f(outerV[i].x, outerV[i].y, outerV[i].z);
-        glVertex3f(innerV[i].x, innerV[i].y, innerV[i].z);
-    }
-    glEnd();
-
+    return result;
 }
 
-void tower1(float radius, float centerX, float centerY, float openWidth, float openHeight, float thickness) {
-    openedTowerWall(radius, centerX, centerY, openWidth, openHeight, thickness);
-    glPushMatrix();
-    glTranslatef(0.0f, 3.0f, 0.0f);
-    openedTowerWall(radius, centerX, centerY, openWidth, openHeight, thickness);
-    glPopMatrix();
+vector<vector<Point3D>> hexagonWallPanelAllOpenArch(float w, float h, float cx, float cy, float cz, float radius, int segments) {
+
+    vector<vector<Point3D>> sides;
+    float angle = 60.0; // Each interior angle of a regular hexagon
+    //float d = 2 * (radius + w) / (2 * cos(30.0f * 3.14159f / 180.0f));
+    float d = (radius + w) * tan(60.f * M_PI / 180.0f);
+
+    for (int i = 0; i < 6; ++i) {
+
+        glPushMatrix();
+        glRotatef(angle * i, 0.0f, 1.0f, 0.0f);
+        glTranslatef(0.0f, 0.0f, d);
+        glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
+
+        // Calculate the normal vector for the first face
+        float new_x = 0.0f;
+        float new_y = 0.0f;
+        float new_z = -1.0f;
+
+        // Rotate the normal vector around the y-axis by 60 degrees
+        float radians = angle * i * (3.14159f / 180.0f);
+        float rotated_x = cos(radians) * new_x - sin(radians) * new_z;
+        float rotated_y = new_y;
+        float rotated_z = sin(radians) * new_x + cos(radians) * new_z;
+
+        // Normalize the rotated normal vector
+        float length = sqrt(rotated_x * rotated_x + rotated_y * rotated_y + rotated_z * rotated_z);
+        rotated_x /= length;
+        rotated_y /= length;
+        rotated_z /= length;
+
+        // Set the normal vector for lighting calculations
+        glNormal3f(rotated_x, rotated_y, rotated_z);
+
+        vector<Point3D> side = wallPanelOpenArch(w, h, cx, cy, -cz, radius, segments);
+        sides.push_back(side);
+        glPopMatrix();
+
+    }
+
+    return sides;
+}
+
+void hexagonWallRingAllOpenArch(float w, float h, float cx, float cy, float cz, float radius, int segments, int innerRadius) {
+
+    //vector<vector<Point3D>> ring1 = hexagonWallPanelAllOpenArch(w, h, cx, cy, cz * innerRadius, radius, segments);
+    //vector<vector<Point3D>> ring2 = hexagonWallPanelAllOpenArch(w, h, cx, cy, cz, radius, segments);
+
 }

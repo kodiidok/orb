@@ -1,5 +1,6 @@
 
 #include <random>
+#include <GL/glut.h>
 #include "Utils.h"
 #include "Vertices.h"
 
@@ -34,5 +35,17 @@ void calculateNormal(const Point3D& p1, const Point3D& p2, const Point3D& p3, fl
         normalX /= length;
         normalY /= length;
         normalZ /= length;
+    }
+}
+
+void drawLabel(string text, float x, float y, float z) {
+    glColor3f(0.5f, 0.5f, 0.5f);
+
+    // Set the raster position to a visible location
+    glRasterPos3f(x, y, z);
+
+    // Render each character in the string
+    for (char character : text) {
+        glutBitmapCharacter(GLUT_BITMAP_8_BY_13, character);
     }
 }
