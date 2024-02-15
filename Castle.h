@@ -8,7 +8,7 @@
 using namespace std;
 
 void hexagon(float centerX, float centerZ, float sideLength);
-void hexagonBlock(float centerX, float centerZ, float sideLength, float height, float innerRadius);
+void hexagonBlock(float centerX, float centerZ, float radius, float height, float innerRadius);
 void arch(float centerX, float centerY, float width, float height);
 void initRandomRotations(int numBlocks);
 vector<Point3D> circle(float centerx, float centery, float z, float radius, int segments);

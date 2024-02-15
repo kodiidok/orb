@@ -40,53 +40,44 @@ void hexagon(float centerX, float centerZ, float sideLength) {
     glEnd();
 }
 
-void hexagonBlock(float centerX, float centerZ, float sideLength, float height, float innerRadius) {
+void hexagonBlock(float centerX, float centerZ, float radius, float height, float innerRadius) {
 
-    float angle = 60.0; // Each interior angle of a regular hexagon
+    vector<Point3D> v;
 
-    for (int j = 0; j < 4; ++j) {
-        glBegin(GL_QUAD_STRIP);
+    float angle = 60.0f; // Each interior angle of a regular hexagon
 
-        for (int i = 0; i < 7; ++i) {
-            float x = centerX + sideLength * cos((angle * i) * M_PI / 180.0);
-            float z = centerZ + sideLength * sin((angle * i) * M_PI / 180.0);
+    glBegin(GL_QUAD_STRIP);
 
-            // Calculate the normal
-            float normalX = cos((angle * i) * M_PI / 180.0);
-            float normalY = 1.0f;
-            float normalZ = sin((angle * i) * M_PI / 180.0);
+    for (int i = 0; i <= 6; i++) {
+        float theta = angle * (i + 1) *M_PI / 180.0f;
 
-            // Set the normal
-            glNormal3f(normalX, normalY, normalZ);
+        float ntheta = angle * i * M_PI / 180.0f;
 
-            // Set the vertices
-            if (j == 0) {
-                glVertex3f(x, -(height / 2), z);
-                glVertex3f(x, (height / 2), z);
-            }
-            else if (j == 1) {
-                glVertex3f(x * innerRadius, -(height / 2), z * innerRadius);
-                glVertex3f(x * innerRadius, (height / 2), z * innerRadius);
-            }
-            else if (j == 2) {
-                glVertex3f(x, (height / 2), z);
-                glVertex3f(x * innerRadius, (height / 2), z * innerRadius);
-            }
-            else if (j == 3) {
-                glVertex3f(x, -(height / 2), z);
-                glVertex3f(x * innerRadius, -(height / 2), z * innerRadius);
-            }
-        }
+        // Calculate the face normal for the current side
+        float normalX = sin(ntheta);
+        float normalZ = -cos(ntheta);
 
-        glEnd();
+        // Normalize the face normal
+        float length = sqrt(normalX * normalX + normalZ * normalZ);
+        normalX /= length;
+        normalZ /= length;
+
+        glNormal3f(normalX, 0.0f, normalZ);
+
+        glVertex3f(centerX + radius * cos(theta), -height / 2, centerZ + radius * sin(theta));
+        glVertex3f(centerX + radius * cos(theta), height / 2, centerZ + radius * sin(theta));
+
     }
+
+    glEnd();
+
 }
 
 void arch(float centerX, float centerY, float width, float height) {
-    float angle = 15.0; // Each interior angle of a regular hexagon
+    float angle = 30.0;
     float angleInc = 0.0f;
     float heightInc = 0.0f;
-    float blockSize = 0.25f;
+    float blockSize = 0.2f;
 
     int nBlocks = static_cast<int>(2 * height / blockSize);
 
@@ -262,8 +253,8 @@ vector<vector<Point3D>> hexagonOpenArch(float h, float cx, float cy, float cz, f
         glTranslatef(0.0f, 0.0f, d);
         glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
 
-        vector<Point3D> arch = openArch(h, cx, cy, -cz, radius, segments, thickness);
-        arches.push_back(arch);
+        vector<Point3D> archSeam = openArch(h, cx, cy, -cz, radius, segments, thickness);
+        arches.push_back(archSeam);
         glPopMatrix();
 
     }
