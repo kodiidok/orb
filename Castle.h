@@ -26,7 +26,9 @@ void hexagonWallRingAllOpenArch(float w, float h, float cx, float cy, float cz, 
 vector<Point3D> openArch(float h, float cx, float cy, float cz, float radius, int segments, float thickness);
 vector<vector<Point3D>> hexagonOpenArch(float h, float cx, float cy, float cz, float radius, int segments, float thickness, float d);
 void hexagonFloor(float cx, float cz, float sideLength);
-void tower3(float scale);
+void towerBlock(Scale s);
+void tower3(Scale s);
 void railing(float scale);
+void stairs(Scale s);
 
 #endif

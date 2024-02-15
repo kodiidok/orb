@@ -332,6 +332,12 @@ void wallDecoTop(Scale s) {
     glTranslatef(-0.5f, 0.0f, 0.0f);
     for (int i = 0; i < 5; i++) {
         glPushMatrix();
+
+        if (i == 0 || i == 4) {
+            glTranslatef(0.0f, -0.9f, 0.0f);
+            glScalef(1.0f, 10.0f, 1.0f);
+        }
+
         glTranslatef(i * 0.25f, 0.0f, 0.0f);
         glutSolidCube(0.2f);
         glPopMatrix();
@@ -476,13 +482,13 @@ void hexagonFloor(float cx, float cz, float sideLength) {
     hexagon(cx, cz, sideLength);
 }
 
-void tower3(float scale = 1.0f) {
+void towerBlock(Scale s) {
     glPushMatrix();
-    glScalef(scale * 1.0f, scale * 1.0f, scale * 1.0f);
+    glScalef(s.x * 1.0f, s.y * 1.0f, s.z * 1.0f);
 
     glPushMatrix();
     glTranslatef(0.0f, 1.0f, 0.0f);
-    glRotatef(30.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-210.0f, 0.0f, 1.0f, 0.0f);
     hexagonBlock(0.0f, 0.0f, 2.5f, 0.25f, 0.0f);
     glPopMatrix();
 
@@ -495,11 +501,35 @@ void tower3(float scale = 1.0f) {
 
     glPushMatrix();
     glTranslatef(0.0f, -1.0f, 0.0f);
-    glRotatef(30.0f, 0.0f, 1.0f, 0.0f);
+    glRotatef(-210.0f, 0.0f, 1.0f, 0.0f);
     hexagonBlock(0.0f, 0.0f, 2.5f, 0.25f, 2.0f);
     glPopMatrix();
-    
+
     glPopMatrix();
+}
+
+void tower3(Scale s) {
+    
+    glPushMatrix();
+    glScalef(s.x, s.y, s.z);
+
+    glPushMatrix();
+    glTranslatef(0.0f, 5.0f, 0.0f);
+    towerBlock({ 1.0f, 1.0f, 1.0f });
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0.0f, 3.0f, 0.0f);
+    towerBlock({ 1.0f, 1.0f, 1.0f });
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0.0f, 1.0f, 0.0f);
+    towerBlock({ 1.0f, 1.0f, 1.0f });
+    glPopMatrix();
+
+    glPopMatrix();
+
 }
 
 void railing(float scale) {
@@ -534,6 +564,21 @@ void railing(float scale) {
     glScalef(0.1f, 0.1f, 0.1f);
     glutSolidCube(1.0f);
     glPopMatrix();
+
+    glPopMatrix();
+}
+
+void stairs(Scale s) {
+
+    glPushMatrix();
+    glScalef(s.x, s.y, s.z);
+
+    for (int i = 0; i < 5; i ++) {
+        glPushMatrix();
+        glTranslatef(0.0f, i * -0.5f, i * 1.0f);
+        glutSolidCube(1.0f);
+        glPopMatrix();
+    }
 
     glPopMatrix();
 }

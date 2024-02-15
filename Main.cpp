@@ -34,7 +34,7 @@ void init() {
 
 void camera() {
 
-	float eyex = 0.0f, eyey = 2.0f, eyez = 2.0f;
+	float eyex = 0.0f, eyey = 0.0f, eyez = 4.0f;
 	float centerx = 0.0f, centery = 0.0f, centerz = 0.0f;
 	float upx = 0.0f, upy = 1.0f, upz = 0.0f;
 
@@ -124,10 +124,26 @@ void indicators() {
 	hexagonNormalIndicator();
 }
 
-// remove this
-void non() {
-	hexagonWallPanelAllOpenArch(0.7f, 1.0f, 0.0f, 0.0f, 0.0f, 0.3f, 16);
+void scene() {
+	glPushMatrix();
+	glEnable(GL_NORMALIZE);
 
+	addMaterial(WHITE_MATTE);
+
+	// stairs
+	glPushMatrix();
+	glTranslatef(-5.0f, -1.0f, 1.5f);
+	glRotatef(27.0f, 0.0f, 1.0f, 0.0f);
+	stairs({ 3.5f, 1.0f, 0.5f });
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(5.0f, -1.0f, 1.5f);
+	glRotatef(-27.0f, 0.0f, 1.0f, 0.0f);
+	stairs({ 3.5f, 1.0f, 0.5f });
+	glPopMatrix();
+
+	// railing base
 	glPushMatrix();
 	glTranslatef(0.0f, -0.25f, 0.0f);
 
@@ -169,30 +185,31 @@ void non() {
 
 	glPopMatrix();
 
-	//glPushMatrix();
-	//glTranslatef(0.0f, 0.5f, -7.0f);
-	//tower3(1.0f);
-	//glPopMatrix();
-
+	// tower
 	glPushMatrix();
-	glTranslatef(0.0f, -1.0f, -7.0f);
+	glTranslatef(0.0f, -0.2f, -7.0f);
+	glRotatef(-30.0f, 0.0f, 1.0f, 0.0f);
+	tower3({ 1.0f, 1.0f, 1.0f });
+	glPopMatrix();
+
+	// back panel base
+	glPushMatrix();
+	glTranslatef(0.0f, -0.8f, -7.0f);
 	hexagonBlock(0.0f, 0.0f, 4.0f, 1.0f, 0.0f);
 	glPopMatrix();
 
+	// 3 panel base
 	glPushMatrix();
 	glTranslatef(0.0f, -2.0f, 0.0f);
 	glRotatef(-120.0f, 0.0f, 1.0f, 0.0f);
 	partialHexagonBlock(3, 0.0f, 0.0f, 8.0f, 3.0f, 4.0f);
 	glPopMatrix();
-}
 
-void scene() {
 	glPushMatrix();
-	glEnable(GL_NORMALIZE);
-
-	addMaterial(WHITE_MATTE);
-
-	tower3(1.0f);
+	glTranslatef(0.0f, -4.0f, 0.0f);
+	glRotatef(-120.0f, 0.0f, 1.0f, 0.0f);
+	partialHexagonBlock(6, 0.0f, 0.0f, 8.0f, 1.0f, 4.0f);
+	glPopMatrix();
 
 	glDisable(GL_NORMALIZE);
 	glPopMatrix();
