@@ -86,19 +86,7 @@ void dirIndicator(Point3D& src, Point3D& dest) {
 	glDisable(GL_COLOR_MATERIAL);
 }
 
-void scene() {
-	glPushMatrix();
-	glEnable(GL_NORMALIZE);
-
-	addMaterial(WHITE_MATTE);
-
-	hexagonWallRingAllOpenArch(0.7f, 1.0f, 0.0f, 0.0f, 0.0f, 0.3f, 16, 0.25f);
-
-	glPushMatrix();
-	glTranslatef(0.0f, 1.0f, 0.0f);
-	hexagonBlock(0.0f, 0.0f, 2.5f, 0.25f, 1.8f);
-	glPopMatrix();
-
+void indicators() {
 	addMaterial(DARK_GRAY_MATTE);
 
 	drawLabel("front", 0.0f, 0.0f, 3.0f);
@@ -106,14 +94,19 @@ void scene() {
 	drawLabel("left", -3.0f, 0.0f, 0.0f);
 	drawLabel("right", 3.0f, 0.0f, 0.0f);
 
-	//for (size_t i = 0; i < wwoa.size(); i++) {
-	//	printf("%f, %f, %f\n", wwoa[i].x, wwoa[i].y, wwoa[i].z);
-	//	string label = "v" + to_string(i) + ", " + to_string(wwoa[i].x) + ", " + to_string(wwoa[i].y);
-	//	drawLabel(label, wwoa[i].x, wwoa[i].y, wwoa[i].z);
-	//}
+	Point3D light0_pos = { 0.0f, 2.0f, 2.0f };
+	Point3D light0_dir = { 0.0f, -1.0f, -1.0f };
+	posIndicator(light0_pos);
+	dirIndicator(light0_pos, light0_dir);
+	drawLabel("light 0", light0_pos.x, light0_pos.y, light0_pos.z);
+}
 
-	//size_t changer = 5 / 4;
-	//drawLabel(to_string(changer), 0.0f, 0.0f, 1.5f);
+void scene() {
+	glPushMatrix();
+	glEnable(GL_NORMALIZE);
+
+	addMaterial(WHITE_MATTE);
+	tower3(1.0f);
 
 	glDisable(GL_NORMALIZE);
 	glPopMatrix();
@@ -127,16 +120,13 @@ void display() {
 
 	axes();
 
-	Point3D light0_pos = { 0.0f, 2.0f, 2.0f };
-	Point3D light0_dir = { 0.0f, -1.0f, -1.0f };
-	posIndicator(light0_pos);
-	dirIndicator(light0_pos, light0_dir);
-
 	glPushMatrix();
 	glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
 	grid();
 	glPopMatrix();
 	//drawCartesianCoordinates();
+
+	indicators();
 
 	scene();
 

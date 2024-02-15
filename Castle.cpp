@@ -20,19 +20,25 @@ void initRandomRotations(int numBlocks) {
     }
 }
 
-void hexagon(float centerX, float centerZ, float sideLength) {
+void hexagon(float centerX, float centerZ, float sideLength, int flipNorm = 1) {
     float angle = 60.0; // Each interior angle of a regular hexagon
     glBegin(GL_POLYGON);
     for (int i = 0; i < 6; ++i) {
         float x = centerX + sideLength * cos((angle * i) * M_PI / 180.0);
         float z = centerZ + sideLength * sin((angle * i) * M_PI / 180.0);
 
-        // Calculate the normal
-        float normalX = 0.0f;
-        float normalY = 1.0f;
-        float normalZ = 0.0f;
+        float theta = angle * i * M_PI / 180.0f;
 
-        // Set the normal
+        // Calculate the face normal for the current side
+        float normalX = flipNorm * cos(theta);
+        float normalY = 1.0f;
+        float normalZ = flipNorm * sin(theta);
+
+        // Normalize the face normal
+        float length = sqrt(normalX * normalX + normalY * normalY + normalZ * normalZ);
+        normalX /= length;
+        normalZ /= length;
+
         glNormal3f(normalX, normalY, normalZ);
 
         glVertex3f(x, 0, z);
@@ -49,10 +55,10 @@ vector<Point3D> hexagonStrip(float centerX, float centerZ, float radius, float h
     glBegin(GL_QUAD_STRIP);
 
     for (int i = 0; i <= 6; i++) {
-        float theta = angle * (i + 1) *M_PI / 180.0f;
+        float theta = angle * (i + 1) * M_PI / 180.0f;
 
         // Calculate the face normal for the current side
-        float normalX = cos(theta);
+        float normalX = flipNorm * cos(theta);
         float normalZ = flipNorm * sin(theta);
 
         // Normalize the face normal
@@ -361,7 +367,6 @@ vector<vector<Point3D>> hexagonWallPanelAllOpenArch(float w, float h, float cx, 
 
     vector<vector<Point3D>> sides;
     float angle = 60.0; // Each interior angle of a regular hexagon
-    //float d = 2 * (radius + w) / (2 * cos(30.0f * 3.14159f / 180.0f));
     float d = (radius + w) * tan(60.f * M_PI / 180.0f);
 
     for (int i = 0; i < 6; ++i) {
@@ -410,4 +415,48 @@ void hexagonWallRingAllOpenArch(float w, float h, float cx, float cy, float cz, 
 
     hexagonOpenArch(h, cx, cy, cz, radius, segments, -thickness, d);
 
+}
+
+void hexagonFloor(float cx, float cz, float sideLength) {
+    hexagon(cx, cz, sideLength);
+}
+
+void tower3(float scale = 1.0f) {
+    glPushMatrix();
+    glScalef(scale * 1.0f, scale * 1.0f, scale * 1.0f);
+
+    glPushMatrix();
+    glTranslatef(0.0f, 4.0f, 0.0f);
+    glScalef(0.75f, 1.0f, 0.75f);
+    hexagonWallRingAllOpenArch(0.7f, 1.0f, 0.0f, 0.0f, 0.0f, 0.3f, 16, 0.25f);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0.0f, 3.0f, 0.0f);
+    hexagonBlock(0.0f, 0.0f, 2.5f, 0.25f, 0.0f);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0.0f, -1.0f, 0.0f);
+    hexagonBlock(0.0f, 0.0f, 2.5f, 0.25f, 0.0f);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0.0f, 2.0f, 0.0f);
+    hexagonWallRingAllOpenArch(0.7f, 1.0f, 0.0f, 0.0f, 0.0f, 0.3f, 16, 0.25f);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0.0f, 1.0f, 0.0f);
+    hexagonBlock(0.0f, 0.0f, 2.5f, 0.25f, 1.8f);
+    glPopMatrix();
+
+    hexagonWallRingAllOpenArch(0.7f, 1.0f, 0.0f, 0.0f, 0.0f, 0.3f, 16, 0.25f);
+
+    glPushMatrix();
+    glTranslatef(0.0f, -1.0f, 0.0f);
+    hexagonBlock(0.0f, 0.0f, 2.5f, 0.25f, 0.0f);
+    glPopMatrix();
+    
+    glPopMatrix();
 }
