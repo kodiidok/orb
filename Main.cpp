@@ -70,8 +70,9 @@ void scene() {
 
 	addMaterial(WHITE_MATTE);
 
-	vector<vector<Point3D>> ring1 = hexagonWallPanelAllOpenArch(0.7f, 1.0f, 0.0f, 0.0f, 0.0f, 0.3f, 16);
-	vector<vector<Point3D>> ring2 = hexagonWallPanelAllOpenArch(1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.3f, 16);
+	hexagonWallRingAllOpenArch(0.7f, 1.0f, 0.0f, 0.0f, 0.0f, 0.3f, 16, 0.25f);
+
+	//openArch(1.0f, 0.0f, 0.0f, 0.0f, 0.3f, 16, 0.25f);
 
 	//for (size_t i = 0; i < wwoa.size(); i++) {
 	//	printf("%f, %f, %f\n", wwoa[i].x, wwoa[i].y, wwoa[i].z);

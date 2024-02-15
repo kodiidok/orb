@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <string>
 #include <math.h>
 #include <vector>
 #include <GL/glut.h>
@@ -182,6 +183,94 @@ vector<Point3D> drawSemiCircle(GLenum mode, float centerx, float centery, float 
     return semicirc_coord;
 }
 
+vector<Point3D> openArch(float h, float cx, float cy, float cz, float radius, int segments, float thickness) {
+
+    vector<Point3D> sc1 = semiCircle(cx, cy, cz, radius, segments);
+    vector<Point3D> sc2 = semiCircle(cx, cy, cz + thickness, radius, segments);
+
+    // Add an element to the beginning
+    sc1.insert(sc1.begin(), { sc1[0].x, -h, cz });
+    sc2.insert(sc2.begin(), { sc2[0].x, -h, cz + thickness });
+
+    // Add an element to the end
+    sc1.push_back({ sc1[sc1.size() - 1].x, -h, cz });
+    sc2.push_back({ sc2[sc2.size() - 1].x, -h, cz + thickness });
+
+    vector<Point3D> result;
+
+    glBegin(GL_QUAD_STRIP);
+    for (size_t i = 0; i < sc1.size(); i++) {
+        const Point3D& c1 = sc1[i];
+        float x1 = c1.x;
+        float y1 = c1.y;
+        float z1 = c1.z;
+
+        const Point3D& c2 = sc2[i];
+        float x2 = c2.x;
+        float y2 = c2.y;
+        float z2 = c2.z;
+
+        if (i < 1) {
+            glNormal3f(1.0f, 0.0f, 0.0f);
+        }
+        else if (i < sc1.size() - 1) {
+            float angle = 2.0f * M_PI * float(i) / float(segments);
+
+            // Calculate the normal vector for the first face
+            float new_x = 0.0f;
+            float new_y = 0.0f;
+            float new_z = -1.0f;
+
+            // Rotate the normal vector around the y-axis by 60 degrees
+            float radians = angle * (i - 1) * (3.14159f / 180.0f);
+            float rotated_x = cos(radians) * new_x - sin(radians) * new_z;
+            float rotated_y = new_y;
+            float rotated_z = sin(radians) * new_x + cos(radians) * new_z;
+
+            // Normalize the rotated normal vector
+            float length = sqrt(rotated_x * rotated_x + rotated_y * rotated_y + rotated_z * rotated_z);
+            rotated_x /= length;
+            rotated_y /= length;
+            rotated_z /= length;
+
+            // Set the normal vector for lighting calculations
+            glNormal3f(rotated_x, rotated_y, rotated_z);
+        }
+        else {
+            glNormal3f(1.0f, 0.0f, 0.0f);
+        }
+
+        glVertex3f(x1, y1, z1);
+        glVertex3f(x2, y2, z2);
+        result.push_back({ x1, y1, z1 });
+        result.push_back({ x2, y2, z2 });
+    }
+    glEnd();
+
+    return result;
+}
+
+vector<vector<Point3D>> hexagonOpenArch(float h, float cx, float cy, float cz, float radius, int segments, float thickness, float d) {
+
+    vector<vector<Point3D>> arches;
+    float angle = 60.0; // Each interior angle of a regular hexagon
+
+    for (int i = 0; i < 6; ++i) {
+
+        glPushMatrix();
+        glRotatef(angle * i, 0.0f, 1.0f, 0.0f);
+        glTranslatef(0.0f, 0.0f, d);
+        glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
+
+        vector<Point3D> arch = openArch(h, cx, cy, -cz, radius, segments, thickness);
+        arches.push_back(arch);
+        glPopMatrix();
+
+    }
+
+    return arches;
+}
+
 vector<Point3D> wallPanelOpenArch(float w, float h, float cx, float cy, float cz, float radius, int segments) {
     vector<Point3D> sc = semiCircle(cx, cy, cz, radius, segments);
 
@@ -283,9 +372,14 @@ vector<vector<Point3D>> hexagonWallPanelAllOpenArch(float w, float h, float cx, 
     return sides;
 }
 
-void hexagonWallRingAllOpenArch(float w, float h, float cx, float cy, float cz, float radius, int segments, int innerRadius) {
+void hexagonWallRingAllOpenArch(float w, float h, float cx, float cy, float cz, float radius, int segments, float thickness) {
 
-    //vector<vector<Point3D>> ring1 = hexagonWallPanelAllOpenArch(w, h, cx, cy, cz * innerRadius, radius, segments);
-    //vector<vector<Point3D>> ring2 = hexagonWallPanelAllOpenArch(w, h, cx, cy, cz, radius, segments);
+    float offset = thickness / tan(60.f * M_PI / 180.0f);
+    float d = (radius + w) * tan(60.f * M_PI / 180.0f);
+
+    vector<vector<Point3D>> ring1 = hexagonWallPanelAllOpenArch(w, h, cx, cy, cz, radius, segments);
+    vector<vector<Point3D>> ring2 = hexagonWallPanelAllOpenArch(w + offset, h, cx, cy, cz, radius, segments);
+
+    hexagonOpenArch(h, cx, cy, cz, radius, segments, -thickness, d);
 
 }

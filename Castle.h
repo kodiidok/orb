@@ -17,6 +17,8 @@ vector<Point3D> semiCircle(float centerx, float centery, float z, float radius, 
 vector<Point3D> drawSemiCircle(GLenum mode, float centerx, float centery, float z, float radius, int segments);
 vector<Point3D> wallPanelOpenArch(float w, float h, float cx, float cy, float cz, float radius, int segments);
 vector<vector<Point3D>> hexagonWallPanelAllOpenArch(float w, float h, float cx, float cy, float cz, float radius, int segments);
-void hexagonWallRingAllOpenArch(float w, float h, float cx, float cy, float cz, float radius, int segments, int innerRadius);
+void hexagonWallRingAllOpenArch(float w, float h, float cx, float cy, float cz, float radius, int segments, float thickness);
+vector<Point3D> openArch(float h, float cx, float cy, float cz, float radius, int segments, float thickness);
+vector<vector<Point3D>> hexagonOpenArch(float h, float cx, float cy, float cz, float radius, int segments, float thickness, float d);
 
 #endif
