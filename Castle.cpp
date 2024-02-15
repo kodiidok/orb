@@ -40,7 +40,7 @@ void hexagon(float centerX, float centerZ, float sideLength) {
     glEnd();
 }
 
-void hexagonBlock(float centerX, float centerZ, float radius, float height, float innerRadius) {
+vector<Point3D> hexagonStrip(float centerX, float centerZ, float radius, float height, int flipNorm = 1) {
 
     vector<Point3D> v;
 
@@ -51,11 +51,9 @@ void hexagonBlock(float centerX, float centerZ, float radius, float height, floa
     for (int i = 0; i <= 6; i++) {
         float theta = angle * (i + 1) *M_PI / 180.0f;
 
-        float ntheta = angle * i * M_PI / 180.0f;
-
         // Calculate the face normal for the current side
-        float normalX = sin(ntheta);
-        float normalZ = -cos(ntheta);
+        float normalX = cos(theta);
+        float normalZ = flipNorm * sin(theta);
 
         // Normalize the face normal
         float length = sqrt(normalX * normalX + normalZ * normalZ);
@@ -64,13 +62,52 @@ void hexagonBlock(float centerX, float centerZ, float radius, float height, floa
 
         glNormal3f(normalX, 0.0f, normalZ);
 
-        glVertex3f(centerX + radius * cos(theta), -height / 2, centerZ + radius * sin(theta));
-        glVertex3f(centerX + radius * cos(theta), height / 2, centerZ + radius * sin(theta));
+        Point3D p1 = { centerX + radius * cos(theta), -height / 2, centerZ + radius * sin(theta) };
+        Point3D p2 = { centerX + radius * cos(theta), height / 2, centerZ + radius * sin(theta) };
+
+        glVertex3f(p1.x, p1.y, p1.z);
+        glVertex3f(p2.x, p2.y, p2.z);
+
+        v.push_back(p1);
+        v.push_back(p2);
 
     }
 
     glEnd();
 
+    return v;
+}
+
+void hexagonBlock(float centerX, float centerZ, float radius, float height, float innerRadius) {
+
+    vector<Point3D> strip1 = hexagonStrip(centerX, centerZ, radius, height, 1.0f);
+    vector<Point3D> strip2 = hexagonStrip(centerX, centerZ, innerRadius, height, -1.0f);
+
+    glPushMatrix();
+    glBegin(GL_QUAD_STRIP);
+
+    for (int i = 0; i < strip1.size(); i += 2) {
+        glNormal3f(0.0f, -1.0f, 0.0f);
+
+        glVertex3f(strip1[i].x, strip1[i].y, strip1[i].z);
+        glVertex3f(strip2[i].x, strip2[i].y, strip2[i].z);
+    }
+
+    glEnd();
+    glPopMatrix();
+
+    glPushMatrix();
+    glBegin(GL_QUAD_STRIP);
+
+    for (int i = 1; i < strip1.size(); i += 2) {
+        glNormal3f(0.0f, 1.0f, 0.0f);
+
+        glVertex3f(strip1[i].x, strip1[i].y, strip1[i].z);
+        glVertex3f(strip2[i].x, strip2[i].y, strip2[i].z);
+    }
+
+    glEnd();
+    glPopMatrix();
 }
 
 void arch(float centerX, float centerY, float width, float height) {
@@ -320,7 +357,7 @@ vector<Point3D> wallPanelOpenArch(float w, float h, float cx, float cy, float cz
     return result;
 }
 
-vector<vector<Point3D>> hexagonWallPanelAllOpenArch(float w, float h, float cx, float cy, float cz, float radius, int segments) {
+vector<vector<Point3D>> hexagonWallPanelAllOpenArch(float w, float h, float cx, float cy, float cz, float radius, int segments, int flipNorm) {
 
     vector<vector<Point3D>> sides;
     float angle = 60.0; // Each interior angle of a regular hexagon
@@ -352,7 +389,7 @@ vector<vector<Point3D>> hexagonWallPanelAllOpenArch(float w, float h, float cx, 
         rotated_z /= length;
 
         // Set the normal vector for lighting calculations
-        glNormal3f(rotated_x, rotated_y, rotated_z);
+        glNormal3f(flipNorm * rotated_x, flipNorm * rotated_y, flipNorm * rotated_z);
 
         vector<Point3D> side = wallPanelOpenArch(w, h, cx, cy, -cz, radius, segments);
         sides.push_back(side);
@@ -368,8 +405,8 @@ void hexagonWallRingAllOpenArch(float w, float h, float cx, float cy, float cz, 
     float offset = thickness / tan(60.f * M_PI / 180.0f);
     float d = (radius + w) * tan(60.f * M_PI / 180.0f);
 
-    vector<vector<Point3D>> ring1 = hexagonWallPanelAllOpenArch(w, h, cx, cy, cz, radius, segments);
-    vector<vector<Point3D>> ring2 = hexagonWallPanelAllOpenArch(w + offset, h, cx, cy, cz, radius, segments);
+    vector<vector<Point3D>> ring1 = hexagonWallPanelAllOpenArch(w, h, cx, cy, cz, radius, segments, 1.0f);
+    vector<vector<Point3D>> ring2 = hexagonWallPanelAllOpenArch(w + offset, h, cx, cy, cz, radius, segments, -1.0f);
 
     hexagonOpenArch(h, cx, cy, cz, radius, segments, -thickness, d);
 

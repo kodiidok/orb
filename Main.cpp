@@ -8,6 +8,7 @@
 
 #include "Constants.h"
 #include "Materials.h"
+#include "Utils.h"
 #include "Lights.h"
 #include "Axes.h"
 #include "Cube.h"
@@ -64,6 +65,27 @@ void lights() {
 	spotLight(GL_LIGHT0, pos0, diff0, dir0, cutoff0);
 }
 
+void posIndicator(Point3D& pos) {
+	glEnable(GL_COLOR_MATERIAL);
+	glColor3f(1.0f, 1.0f, 0.0f);
+	glPointSize(3.0f);
+	glBegin(GL_POINTS);
+	glVertex3f(pos.x, pos.y, pos.z);
+	glEnd();
+	glPointSize(1.0f);
+	glDisable(GL_COLOR_MATERIAL);
+}
+
+void dirIndicator(Point3D& src, Point3D& dest) {
+	glEnable(GL_COLOR_MATERIAL);
+	glColor3f(1.0f, 1.0f, 0.0f);
+	glBegin(GL_LINES);
+	glVertex3f(src.x, src.y, src.z);
+	glVertex3f(dest.x, dest.y, dest.z);
+	glEnd();
+	glDisable(GL_COLOR_MATERIAL);
+}
+
 void scene() {
 	glPushMatrix();
 	glEnable(GL_NORMALIZE);
@@ -72,7 +94,17 @@ void scene() {
 
 	hexagonWallRingAllOpenArch(0.7f, 1.0f, 0.0f, 0.0f, 0.0f, 0.3f, 16, 0.25f);
 
-	hexagonBlock(0.0f, 0.0f, 3.0f, 0.25f, 1.0f);
+	glPushMatrix();
+	glTranslatef(0.0f, 1.0f, 0.0f);
+	hexagonBlock(0.0f, 0.0f, 2.5f, 0.25f, 1.8f);
+	glPopMatrix();
+
+	addMaterial(DARK_GRAY_MATTE);
+
+	drawLabel("front", 0.0f, 0.0f, 3.0f);
+	drawLabel("back", 0.0f, 0.0f, -3.0f);
+	drawLabel("left", -3.0f, 0.0f, 0.0f);
+	drawLabel("right", 3.0f, 0.0f, 0.0f);
 
 	//for (size_t i = 0; i < wwoa.size(); i++) {
 	//	printf("%f, %f, %f\n", wwoa[i].x, wwoa[i].y, wwoa[i].z);
@@ -94,6 +126,11 @@ void display() {
 	lights();
 
 	axes();
+
+	Point3D light0_pos = { 0.0f, 2.0f, 2.0f };
+	Point3D light0_dir = { 0.0f, -1.0f, -1.0f };
+	posIndicator(light0_pos);
+	dirIndicator(light0_pos, light0_dir);
 
 	glPushMatrix();
 	glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
