@@ -34,7 +34,7 @@ void init() {
 
 void camera() {
 
-	float eyex = 0.0f, eyey = 0.0f, eyez = 2.0f;
+	float eyex = 0.0f, eyey = 2.0f, eyez = 2.0f;
 	float centerx = 0.0f, centery = 0.0f, centerz = 0.0f;
 	float upx = 0.0f, upy = 1.0f, upz = 0.0f;
 
@@ -67,7 +67,6 @@ void lights() {
 
 void posIndicator(Point3D& pos) {
 	glEnable(GL_COLOR_MATERIAL);
-	glColor3f(1.0f, 1.0f, 0.0f);
 	glPointSize(3.0f);
 	glBegin(GL_POINTS);
 	glVertex3f(pos.x, pos.y, pos.z);
@@ -78,12 +77,33 @@ void posIndicator(Point3D& pos) {
 
 void dirIndicator(Point3D& src, Point3D& dest) {
 	glEnable(GL_COLOR_MATERIAL);
-	glColor3f(1.0f, 1.0f, 0.0f);
 	glBegin(GL_LINES);
 	glVertex3f(src.x, src.y, src.z);
 	glVertex3f(dest.x, dest.y, dest.z);
 	glEnd();
 	glDisable(GL_COLOR_MATERIAL);
+}
+
+void hexagonNormalIndicator() {
+	float radius = 1.0f;  // Adjust the radius as needed
+
+	for (int i = 0; i < 6; ++i) {
+		glPushMatrix();
+
+		// Calculate the position in a circle
+		float angle = i * (M_PI / 3);  // 60 degrees in radians
+		float x = radius * cos(angle);
+		float z = radius * sin(angle);
+
+		// Draw a line from the origin to the centroid
+		Point3D origin = { 0.0f, 0.0f, 0.0f };
+		Point3D n = { x, 0.0f, z };
+		glColor3f(1.0f, 0.0f, 1.0f);
+		dirIndicator(origin, n);
+		drawLabel("n" + to_string(i), n.x, n.y, n.z);
+
+		glPopMatrix();
+	}
 }
 
 void indicators() {
@@ -96,9 +116,74 @@ void indicators() {
 
 	Point3D light0_pos = { 0.0f, 2.0f, 2.0f };
 	Point3D light0_dir = { 0.0f, -1.0f, -1.0f };
+	glColor3f(1.0f, 1.0f, 0.0f);
 	posIndicator(light0_pos);
 	dirIndicator(light0_pos, light0_dir);
 	drawLabel("light 0", light0_pos.x, light0_pos.y, light0_pos.z);
+
+	hexagonNormalIndicator();
+}
+
+// remove this
+void non() {
+	hexagonWallPanelAllOpenArch(0.7f, 1.0f, 0.0f, 0.0f, 0.0f, 0.3f, 16);
+
+	glPushMatrix();
+	glTranslatef(0.0f, -0.25f, 0.0f);
+
+	glPushMatrix();
+	glTranslatef(2.0f, 0.0f, -4.0f);
+	glRotatef(-60.0f, 0.0f, 1.0f, 0.0f);
+	for (int i = 0; i < 4; i++) {
+		glTranslatef(1.0f, 0.0f, 0.0f);
+		railing(1.0f);
+	}
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(3.5f, 0.0f, -7.0f);
+	glRotatef(-60.0f, 0.0f, 1.0f, 0.0f);
+	for (int i = 0; i < 7; i++) {
+		glTranslatef(1.0f, 0.0f, 0.0f);
+		railing(1.0f);
+	}
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-2.0f, 0.0f, -4.0f);
+	glRotatef(60.0f, 0.0f, 1.0f, 0.0f);
+	for (int i = 0; i < 4; i++) {
+		glTranslatef(-1.0f, 0.0f, 0.0f);
+		railing(1.0f);
+	}
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-3.5f, 0.0f, -7.0f);
+	glRotatef(60.0f, 0.0f, 1.0f, 0.0f);
+	for (int i = 0; i < 7; i++) {
+		glTranslatef(-1.0f, 0.0f, 0.0f);
+		railing(1.0f);
+	}
+	glPopMatrix();
+
+	glPopMatrix();
+
+	//glPushMatrix();
+	//glTranslatef(0.0f, 0.5f, -7.0f);
+	//tower3(1.0f);
+	//glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0f, -1.0f, -7.0f);
+	hexagonBlock(0.0f, 0.0f, 4.0f, 1.0f, 0.0f);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0f, -2.0f, 0.0f);
+	glRotatef(-120.0f, 0.0f, 1.0f, 0.0f);
+	partialHexagonBlock(3, 0.0f, 0.0f, 8.0f, 3.0f, 4.0f);
+	glPopMatrix();
 }
 
 void scene() {
@@ -106,6 +191,7 @@ void scene() {
 	glEnable(GL_NORMALIZE);
 
 	addMaterial(WHITE_MATTE);
+
 	tower3(1.0f);
 
 	glDisable(GL_NORMALIZE);
@@ -120,10 +206,10 @@ void display() {
 
 	axes();
 
-	glPushMatrix();
-	glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
-	grid();
-	glPopMatrix();
+	//glPushMatrix();
+	//glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+	//grid();
+	//glPopMatrix();
 	//drawCartesianCoordinates();
 
 	indicators();
