@@ -214,7 +214,8 @@ void scene() {
 
 	addMaterial(WHITE_MATTE);
 
-	rock1();
+	//rock1();
+	//rock2();
 
 	glDisable(GL_NORMALIZE);
 	glPopMatrix();
