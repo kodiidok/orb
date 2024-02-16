@@ -216,6 +216,7 @@ void scene() {
 
 	//rock1();
 	//rock2();
+	rock3();
 
 	glDisable(GL_NORMALIZE);
 	glPopMatrix();

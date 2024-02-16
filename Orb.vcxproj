@@ -157,6 +157,7 @@
     <ClInclude Include="Props.h" />
     <ClInclude Include="Rock1.h" />
     <ClInclude Include="Rock2.h" />
+    <ClInclude Include="Rock3.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vertices.h" />
   </ItemGroup>
