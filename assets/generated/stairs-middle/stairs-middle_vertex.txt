@@ -1,0 +1,16 @@
+mesh.vertex({-0.67f, -0.3f, 0.036f});
+mesh.vertex({-0.622f, -0.3f, 0.036f});
+mesh.vertex({-0.67f, 0.3f, 0.036f});
+mesh.vertex({-0.622f, 0.3f, 0.036f});
+mesh.vertex({-0.665f, -0.3f, -0.045f});
+mesh.vertex({-0.622f, -0.3f, -0.027f});
+mesh.vertex({-0.665f, 0.3f, -0.045f});
+mesh.vertex({-0.622f, 0.3f, -0.027f});
+mesh.vertex({0.622f, -0.3f, 0.036f});
+mesh.vertex({0.67f, -0.3f, 0.036f});
+mesh.vertex({0.622f, 0.3f, 0.036f});
+mesh.vertex({0.67f, 0.3f, 0.036f});
+mesh.vertex({0.622f, -0.3f, -0.027f});
+mesh.vertex({0.665f, -0.3f, -0.045f});
+mesh.vertex({0.622f, 0.3f, -0.027f});
+mesh.vertex({0.665f, 0.3f, -0.045f});

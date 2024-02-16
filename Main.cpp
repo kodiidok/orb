@@ -227,7 +227,11 @@ void scene() {
 
 	//hollowHexagon("");
 
-	deformedCube("");
+	//deformedCube("");
+
+	//stairs();
+
+	wallLedge("");
 
 	//sceneMap();
 

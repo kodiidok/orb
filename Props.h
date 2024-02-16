@@ -16,6 +16,13 @@ void hollowHexagon(const std::string& textureFilename);
 
 void deformedCube(const std::string& textureFilename);
 
+void wallLedge(const std::string& textureFilename);
+
+void stairs();
+
+void stairsMiddle(const std::string& textureFilename);
+void stairsSide(const std::string& textureFilename);
+
 void rocks();
 
 void rock1(const std::string& textureFilename);

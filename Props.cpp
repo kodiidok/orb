@@ -14,6 +14,11 @@
 
 #include "DeformedCube.h"
 
+#include "StairsMiddle.h"
+#include "StairsSide.h"
+
+#include "WallLedge.h"
+
 #include <string>
 #include <GL/glut.h>
 #include "Utils.h"
@@ -47,7 +52,7 @@ void createProp(Mesh& mesh, const std::string& textureFilename = "", float rot =
     // Draw labels for each vertex
     for (size_t i = 0; i < vertices.size(); ++i) {
         const auto& vertex = vertices[i];
-        drawLabel(std::to_string(i), vertex.x, vertex.y, vertex.z);
+        //drawLabel(std::to_string(i), vertex.x, vertex.y, vertex.z);
     }
 
     // Set wireframe drawing mode
@@ -84,6 +89,56 @@ void createProp(Mesh& mesh, const std::string& textureFilename = "", float rot =
     }
 }
 
+void stairs() {
+
+    glPushMatrix();
+    //glScalef(s.x, s.y, s.z);
+
+    for (int i = 0; i < 5; i++) {
+        glPushMatrix();
+        glTranslatef(0.0f, i * -0.5f, i * 0.5f);
+        
+        stairsMiddle("");
+        glPushMatrix();
+        glTranslatef(0.85f, 0.0f, 0.0f);
+        stairsSide("");
+        glPopMatrix();
+        glPushMatrix();
+        glTranslatef(-0.85f, 0.0f, 0.0f);
+        glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
+        stairsSide("");
+        glPopMatrix();
+
+        glPopMatrix();
+    }
+
+    glPopMatrix();
+
+}
+
+void stairsSide(const std::string& textureFilename = "") {
+    StairsSide stairsSide;
+    Mesh mesh = stairsSide.init();
+
+    createProp(mesh, textureFilename, -90.0f);
+}
+
+void stairsMiddle(const std::string& textureFilename = "") {
+    StairsMiddle stairsMiddle;
+    Mesh mesh = stairsMiddle.init();
+
+    createProp(mesh, textureFilename, -90.0f);
+}
+
+
+void wallLedge(const std::string& textureFilename = "") {
+    WallLedge wallLedge;
+    Mesh mesh = wallLedge.init();
+
+    createProp(mesh, textureFilename, -90.0f);
+}
+
+
 void deformedCube(const std::string& textureFilename = "") {
     DeformedCube deformedCube;
     Mesh mesh = deformedCube.init();
@@ -105,7 +160,6 @@ void hollowHexagon(const std::string& textureFilename = "") {
     createProp(mesh, textureFilename, 0.0f);
 }
 
-
 void hexagonOpenWall(const std::string& textureFilename)
 {
     HexagonOpenWall hexagonOpenWall;
@@ -113,6 +167,7 @@ void hexagonOpenWall(const std::string& textureFilename)
 
     createProp(mesh, textureFilename, 0.0f);
 }
+
 
 void rocks() {
     glPushMatrix();

@@ -116,6 +116,15 @@
     <ClInclude Include="DeformedCube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StairsMiddle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StairsSide.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WallLedge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="temp.txt" />
