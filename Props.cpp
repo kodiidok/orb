@@ -18,6 +18,14 @@ void createProp(Mesh& mesh, const std::string& textureFilename = "") {
         glBindTexture(GL_TEXTURE_2D, textureID);
     }
 
+    // Set texture parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    float textureScale = 0.07f;
+
     // Set up the model transformation
     glPushMatrix();
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
@@ -35,6 +43,13 @@ void createProp(Mesh& mesh, const std::string& textureFilename = "") {
 
         for (const auto& vertexIndex : face.vertices) {
             const auto& vertex = vertices[vertexIndex];
+
+            // Adjust texture coordinates based on the vertex position
+            float texCoordX = vertex.x * textureScale;
+            float texCoordY = vertex.y * textureScale;
+
+            glTexCoord2f(texCoordX, texCoordY);
+
             glVertex3f(vertex.x, vertex.y, vertex.z);
         }
 
