@@ -14,6 +14,8 @@ void hexagonBase(const std::string& textureFilename);
 void hexagonOpenWall(const std::string& textureFilename);
 void hollowHexagon(const std::string& textureFilename);
 
+void deformedCube(const std::string& textureFilename);
+
 void rocks();
 
 void rock1(const std::string& textureFilename);

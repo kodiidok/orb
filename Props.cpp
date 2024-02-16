@@ -12,6 +12,8 @@
 #include "HexagonOpenWall.h"
 #include "HollowHexagonBase.h"
 
+#include "DeformedCube.h"
+
 #include <string>
 #include <GL/glut.h>
 #include "Utils.h"
@@ -80,6 +82,13 @@ void createProp(Mesh& mesh, const std::string& textureFilename = "", float rot =
     if (!textureFilename.empty()) {
         glDisable(GL_TEXTURE_2D);
     }
+}
+
+void deformedCube(const std::string& textureFilename = "") {
+    DeformedCube deformedCube;
+    Mesh mesh = deformedCube.init();
+
+    createProp(mesh, textureFilename, 0.0f);
 }
 
 void hexagonBase(const std::string& textureFilename = "") {

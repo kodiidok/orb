@@ -225,7 +225,9 @@ void scene() {
 
 	//hexagonOpenWall("");
 
-	hollowHexagon("");
+	//hollowHexagon("");
+
+	deformedCube("");
 
 	//sceneMap();
 
