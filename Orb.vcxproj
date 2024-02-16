@@ -142,6 +142,7 @@
     <ClCompile Include="Materials.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Props.cpp" />
+    <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Vertices.cpp" />
   </ItemGroup>
@@ -158,6 +159,9 @@
     <ClInclude Include="Rock1.h" />
     <ClInclude Include="Rock2.h" />
     <ClInclude Include="Rock3.h" />
+    <ClInclude Include="Rock4.h" />
+    <ClInclude Include="Rock5.h" />
+    <ClInclude Include="Textures.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vertices.h" />
   </ItemGroup>

@@ -26,11 +26,16 @@ float cam_rotx = 0.0f, cam_roty = 0.0f, cam_rotz = 0.0f;
 
 float fovy = 90.0f, aspect = win_w / win_h, zNear = 0.1, zfar = 100.0f;
 
+void textures() {
+	Textures::setTextureFilePath("cliff_rocks_1_col", "assets/textures/cliff_rocks_01_1k/cliff_rocks_01_color_1k.png");
+}
+
 void init() {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClearDepth(1);
 	glEnable(GL_DEPTH_TEST);
 	glShadeModel(GL_SMOOTH);
+	textures();
 }
 
 void camera() {
@@ -214,9 +219,11 @@ void scene() {
 
 	addMaterial(WHITE_MATTE);
 
-	//rock1();
+	rock1("cliff_rocks_1_col");
 	//rock2();
-	rock3();
+	//rock3();
+	//rock4();
+	//rock5();
 
 	glDisable(GL_NORMALIZE);
 	glPopMatrix();

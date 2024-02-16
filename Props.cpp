@@ -4,10 +4,20 @@
 #include "Rock1.h"
 #include "Rock2.h"
 #include "Rock3.h"
+#include "Rock4.h"
+#include "Rock5.h"
 
+#include <string>
 #include <GL/glut.h>
 
-void createProp(Mesh& mesh) {
+
+void createProp(Mesh& mesh, const std::string& textureFilename = "") {
+    if (!textureFilename.empty()) {
+        GLuint textureID = Textures::loadTexture(textureFilename);
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+    }
+
     // Set up the model transformation
     glPushMatrix();
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
@@ -32,25 +42,44 @@ void createProp(Mesh& mesh) {
     }
 
     glPopMatrix();
+
+    // Disable texture mapping if texture was bound
+    if (!textureFilename.empty()) {
+        glDisable(GL_TEXTURE_2D);
+    }
 }
 
-void rock1() {
+void rock1(const std::string& textureFilename = "") {
     Rock1 rock1;
     Mesh mesh = rock1.init();
 
-    createProp(mesh);
+    createProp(mesh, textureFilename);
 }
 
-void rock2() {
+void rock2(const std::string& textureFilename = "") {
     Rock2 rock2;
     Mesh mesh = rock2.init();
 
-    createProp(mesh);
+    createProp(mesh, textureFilename);
 }
 
-void rock3() {
+void rock3(const std::string& textureFilename = "") {
     Rock3 rock3;
     Mesh mesh = rock3.init();
 
-    createProp(mesh);
+    createProp(mesh, textureFilename);
+}
+
+void rock4(const std::string& textureFilename = "") {
+    Rock4 rock4;
+    Mesh mesh = rock4.init();
+
+    createProp(mesh, textureFilename);
+}
+
+void rock5(const std::string& textureFilename = "") {
+    Rock5 rock5;
+    Mesh mesh = rock5.init();
+
+    createProp(mesh, textureFilename);
 }
