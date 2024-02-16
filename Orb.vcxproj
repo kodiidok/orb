@@ -152,6 +152,9 @@
     <ClInclude Include="Colors.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="HexagonBase.h" />
+    <ClInclude Include="HexagonOpenWall.h" />
+    <ClInclude Include="HollowHexagonBase.h" />
     <ClInclude Include="Lights.h" />
     <ClInclude Include="Materials.h" />
     <ClInclude Include="Mesh.h" />

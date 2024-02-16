@@ -219,11 +219,15 @@ void scene() {
 
 	addMaterial(WHITE_MATTE);
 
-	rock1("cliff_rocks_1_col");
-	//rock2();
-	//rock3();
-	//rock4();
-	//rock5();
+	//rocks();
+
+	//hexagonBase("");
+
+	//hexagonOpenWall("");
+
+	hollowHexagon("");
+
+	//sceneMap();
 
 	glDisable(GL_NORMALIZE);
 	glPopMatrix();

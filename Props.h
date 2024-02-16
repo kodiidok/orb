@@ -8,7 +8,14 @@
 #include "Mesh.h"
 #include "Textures.h"
 
-void createProp(Mesh& mesh, const std::string& textureFilename);
+void createProp(Mesh& mesh, const std::string& textureFilename, float rot);
+
+void hexagonBase(const std::string& textureFilename);
+void hexagonOpenWall(const std::string& textureFilename);
+void hollowHexagon(const std::string& textureFilename);
+
+void rocks();
+
 void rock1(const std::string& textureFilename);
 void rock2(const std::string& textureFilename);
 void rock3(const std::string& textureFilename);
