@@ -14,4 +14,9 @@ void Mesh::vertex(Point3D v)
 	vertices.push_back(v);
 }
 
+void Mesh::face(Face f)
+{
+	faces.push_back(f);
+}
+
 

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <math.h>
 #include <vector>
+#include <string>
 
 #include <GL/glut.h>
 #include <SOIL2.h>
@@ -13,7 +14,7 @@
 #include "Axes.h"
 #include "Cube.h"
 #include "Castle.h"
-#include <string>
+#include "Props.h"
 
 using namespace std;
 
@@ -124,12 +125,7 @@ void indicators() {
 	hexagonNormalIndicator();
 }
 
-void scene() {
-	glPushMatrix();
-	glEnable(GL_NORMALIZE);
-
-	addMaterial(WHITE_MATTE);
-
+void sceneMap() {
 	// stairs
 	glPushMatrix();
 	glTranslatef(-5.0f, -1.0f, 1.5f);
@@ -210,6 +206,15 @@ void scene() {
 	glRotatef(-120.0f, 0.0f, 1.0f, 0.0f);
 	partialHexagonBlock(6, 0.0f, 0.0f, 8.0f, 1.0f, 4.0f);
 	glPopMatrix();
+}
+
+void scene() {
+	glPushMatrix();
+	glEnable(GL_NORMALIZE);
+
+	addMaterial(WHITE_MATTE);
+
+	rock1();
 
 	glDisable(GL_NORMALIZE);
 	glPopMatrix();
