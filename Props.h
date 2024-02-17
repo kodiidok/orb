@@ -11,6 +11,7 @@
 void createProp(Mesh& mesh, const std::string& textureFilename, float rot);
 
 void hexagonBase(const std::string& textureFilename);
+void hexagonBlock(const std::string& textureFilename);
 void hexagonOpenWall(const std::string& textureFilename);
 void hollowHexagon(const std::string& textureFilename);
 

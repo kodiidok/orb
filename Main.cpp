@@ -222,8 +222,10 @@ void scene() {
 	//rocks();
 
 	//hexagonBase("");
+	
+	//hexagonBlock("");
 
-	//hexagonOpenWall("");
+	hexagonOpenWall("");
 
 	//hollowHexagon("");
 
@@ -231,7 +233,7 @@ void scene() {
 
 	//stairs();
 
-	wallLedge("");
+	//wallLedge("");
 
 	//sceneMap();
 

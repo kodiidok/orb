@@ -154,6 +154,7 @@
     <ClInclude Include="Cube.h" />
     <ClInclude Include="DeformedCube.h" />
     <ClInclude Include="HexagonBase.h" />
+    <ClInclude Include="HexagonBlock.h" />
     <ClInclude Include="HexagonOpenWall.h" />
     <ClInclude Include="HollowHexagonBase.h" />
     <ClInclude Include="Lights.h" />

@@ -9,6 +9,7 @@
 #include "Rock5.h"
 
 #include "HexagonBase.h"
+#include "HexagonBlock.h"
 #include "HexagonOpenWall.h"
 #include "HollowHexagonBase.h"
 
@@ -52,7 +53,7 @@ void createProp(Mesh& mesh, const std::string& textureFilename = "", float rot =
     // Draw labels for each vertex
     for (size_t i = 0; i < vertices.size(); ++i) {
         const auto& vertex = vertices[i];
-        //drawLabel(std::to_string(i), vertex.x, vertex.y, vertex.z);
+        drawLabel(std::to_string(i), vertex.x, vertex.y, vertex.z);
     }
 
     // Set wireframe drawing mode
@@ -149,6 +150,13 @@ void deformedCube(const std::string& textureFilename = "") {
 void hexagonBase(const std::string& textureFilename = "") {
     HexagonBase hexagonBase;
     Mesh mesh = hexagonBase.init();
+
+    createProp(mesh, textureFilename, 0.0f);
+}
+
+void hexagonBlock(const std::string& textureFilename = "") {
+    HexagonBlock hexagonBlock;
+    Mesh mesh = hexagonBlock.init();
 
     createProp(mesh, textureFilename, 0.0f);
 }

@@ -46,6 +46,6 @@ void drawLabel(string text, float x, float y, float z) {
 
     // Render each character in the string
     for (char character : text) {
-        glutBitmapCharacter(GLUT_BITMAP_8_BY_13, character);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, character);
     }
 }
