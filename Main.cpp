@@ -239,133 +239,7 @@ void sceneMap() {
 	//glPopMatrix();
 }
 
-void scene() {
-	glPushMatrix();
-	glEnable(GL_NORMALIZE);
-	glEnable(GL_COLOR_MATERIAL);
-
-	addMaterial(WHITE_MATTE);
-
-	//rocks();
-
-	// right tower
-
-	glPushMatrix();
-	glTranslatef(5.0f, -2.0f, 3.0f);
-	glRotatef(0.0f, 0.0f, 0.0f, 0.0f);
-	glScalef(0.7f, 1.0f, 0.7f);
-
-	glColor3f(lightBrown.r, lightBrown.g, lightBrown.b);
-	glPushMatrix();
-	glTranslatef(0.0f, 0.0f, -7.0f);
-	glScalef(0.75f, 3.0f, 0.75f);
-	hexagonOpenWall("");
-	glPopMatrix();
-
-	glColor3f(plum.r, plum.g, plum.b);
-	glPushMatrix();
-	glTranslatef(0.0f, 2.2f, -7.0f);
-	glScalef(2.5f, 0.5f, 2.5f);
-	hexagonBlock("");
-	glPopMatrix();
-
-	glPopMatrix();
-
-	// left tower
-
-	glPushMatrix();
-	glTranslatef(-5.0f, -2.0f, 3.0f);
-	glRotatef(0.0f, 0.0f, 0.0f, 0.0f);
-	glScalef(0.7f, 1.0f, 0.7f);
-
-	glColor3f(lightBrown.r, lightBrown.g, lightBrown.b);
-	glPushMatrix();
-	glTranslatef(0.0f, 0.0f, -7.0f);
-	glScalef(0.75f, 3.0f, 0.75f);
-	hexagonOpenWall("");
-	glPopMatrix();
-
-	glColor3f(plum.r, plum.g, plum.b);
-	glPushMatrix();
-	glTranslatef(0.0f, 2.2f, -7.0f);
-	glScalef(2.5f, 0.5f, 2.5f);
-	hexagonBlock("");
-	glPopMatrix();
-
-	glPopMatrix();
-
-	// tower
-
-	glColor3f(lightBrown.r, lightBrown.g, lightBrown.b);
-	glPushMatrix();
-	glTranslatef(0.0f, 0.0f, -7.0f);
-	glScalef(0.75f, 3.0f, 0.75f);
-	hexagonOpenWall("");
-	glPopMatrix();
-
-	glColor3f(plum.r, plum.g, plum.b);
-	glPushMatrix();
-	glTranslatef(0.0f, 2.2f, -7.0f);
-	glScalef(2.5f, 0.5f, 2.5f);
-	hexagonBlock("");
-	glPopMatrix();
-
-	glColor3f(lightBrown.r, lightBrown.g, lightBrown.b);
-	glPushMatrix();
-	glTranslatef(0.0f, -3.0f, -7.0f);
-	glScalef(0.75f, 3.0f, 0.75f);
-	hexagonOpenWall("");
-	glPopMatrix();
-
-	//glColor3f(goldenrod.r, goldenrod.g, goldenrod.b);
-	//glPushMatrix();
-	//glTranslatef(0.0f, 0.0f, -4.0f);
-	//glScalef(3.5f, 4.0f, 3.5f);
-	//hexagonOpenWall("");
-	//glPopMatrix();
-
-	// tower base plate
-
-	glColor3f(sienna.r, sienna.g, sienna.b);
-	glPushMatrix();
-	glTranslatef(0.0f, -5.7f, -7.0f);
-	glScalef(4.0f, 3.0f, 4.0f);
-	hexagonBlock("");
-	glPopMatrix();
-
-	// orb holder
-
-	glColor3f(oliveGreen.r, oliveGreen.g, oliveGreen.b);
-	glPushMatrix();
-	glTranslatef(0.0f, -4.0f, 4.0f);
-	glScalef(2.0f, 1.0f, 2.0f);
-	hexagonBlock("");
-	glPopMatrix();
-
-	// stairs
-
-	glColor3f(steelBlue.r, steelBlue.g, steelBlue.b);
-	
-	//stairs();
-
-	glPushMatrix();
-	glTranslatef(4.0f, 0.0f, 2.0f);
-	glScalef(1.0f, 1.0f, 1.0f);
-	glRotatef(-60.0f, 0.0f, 1.0f, 0.0f);
-	stairs();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(-4.0f, 0.0f, 2.0f);
-	glScalef(1.0f, 1.0f, 1.0f);
-	glRotatef(60.0f, 0.0f, 1.0f, 0.0f);
-	stairs();
-	glPopMatrix();
-
-	// rocks
-
-	glColor3f(salmon.r, salmon.g, salmon.b);
-	
+void rockSet() {
 	glPushMatrix();
 	glTranslatef(4.0f, -2.0f, -1.0f);
 	glScalef(2.0f, 3.0f, 2.0f);
@@ -407,11 +281,125 @@ void scene() {
 	glRotatef(69.0f, 0.0f, 1.0f, 1.0f);
 	rock3("");
 	glPopMatrix();
+}
 
-	// 3 panel base
+void clouds() {
+	glPushMatrix();
+	glTranslatef(-6.0f, 0.0f, 0.0f);
+	glScalef(1.35f, 1.35f, 1.35f);
+	glRotatef(30.0f, 0.0f, 1.0f, 0.0f);
+	cloud3("");
+	glPopMatrix();
 
+	glPushMatrix();
+	glTranslatef(5.0f, -3.0f, 0.0f);
+	glScalef(1.25f, 1.85f, 0.85f);
+	glRotatef(0.0f, 0.0f, 1.0f, 0.2f);
+	cloud3("");
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(9.0f, 1.5f, 2.0f);
+	glScalef(0.85f, 0.96f, 0.85f);
+	glRotatef(35.0f, 0.0f, 1.0f, 0.3f);
+	cloud3("");
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-9.0f, -2.0f, 5.0f);
+	glScalef(1.45f, 0.65f, 0.65f);
+	glRotatef(-186.0f, 0.0f, 1.0f, 0.15f);
+	cloud3("");
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.5f, -1.5f, 0.0f);
+	glScalef(0.85f, 0.76f, 1.25f);
+	glRotatef(15.0f, 0.0f, 1.0f, 0.0f);
+	cloud3("");
+	glPopMatrix();
+}
+
+void tower() {
+	glPushMatrix();
+	glTranslatef(0.0f, 0.0f, -7.0f);
+	glScalef(0.75f, 3.0f, 0.75f);
+	hexagonOpenWall("");
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0f, 2.2f, -7.0f);
+	glScalef(2.5f, 0.5f, 2.5f);
+	hexagonBlock("");
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0f, -3.0f, -7.0f);
+	glScalef(0.75f, 3.0f, 0.75f);
+	hexagonOpenWall("");
+	glPopMatrix();
+}
+
+void rightTower() {
+	glPushMatrix();
+	glTranslatef(5.0f, -2.0f, 3.0f);
+	glRotatef(0.0f, 0.0f, 0.0f, 0.0f);
+	glScalef(0.7f, 1.0f, 0.7f);
+
+	glPushMatrix();
+	glTranslatef(0.0f, 0.0f, -7.0f);
+	glScalef(0.75f, 3.0f, 0.75f);
+	hexagonOpenWall("");
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0f, 2.2f, -7.0f);
+	glScalef(2.5f, 0.5f, 2.5f);
+	hexagonBlock("");
+	glPopMatrix();
+
+	glPopMatrix();
+}
+
+void leftTower() {
+	glPushMatrix();
+	glTranslatef(-5.0f, -2.0f, 3.0f);
+	glRotatef(0.0f, 0.0f, 0.0f, 0.0f);
+	glScalef(0.7f, 1.0f, 0.7f);
+
+	glPushMatrix();
+	glTranslatef(0.0f, 0.0f, -7.0f);
+	glScalef(0.75f, 3.0f, 0.75f);
+	hexagonOpenWall("");
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0f, 2.2f, -7.0f);
+	glScalef(2.5f, 0.5f, 2.5f);
+	hexagonBlock("");
+	glPopMatrix();
+
+	glPopMatrix();
+}
+
+void towerBasePlate() {
 	glColor3f(sienna.r, sienna.g, sienna.b);
-	
+	glPushMatrix();
+	glTranslatef(0.0f, -5.7f, -7.0f);
+	glScalef(4.0f, 3.0f, 4.0f);
+	hexagonBlock("");
+	glPopMatrix();
+}
+
+void orbHolder() {
+	glPushMatrix();
+	glTranslatef(0.0f, -4.0f, 4.0f);
+	glScalef(2.0f, 1.0f, 2.0f);
+	hexagonBlock("");
+	glPopMatrix();
+}
+
+void threePanelBase() {
 	glPushMatrix();
 	glTranslatef(0.0f, -4.0f, 0.0f);
 	glScalef(8.5f, 0.35f, 8.5f);
@@ -429,54 +417,119 @@ void scene() {
 	glScalef(8.5f, 0.35f, 8.5f);
 	hexagonWalkPath("");
 	glPopMatrix();
+}
+
+void cloudSet() {
+	glPushMatrix();
+	glTranslatef(0.0f, 0.0f, 0.0f);
+	glScalef(1.0f, 1.0f, 1.0f);
+	glRotatef(0.0f, 0.0f, 1.0f, 0.0f);
+	clouds();
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(0.0f, 0.0f, 0.0f);
+	glScalef(1.6f, 1.3f, 1.2f);
+	glRotatef(120.0f, 0.0f, 0.0f, 0.0f);
+	clouds();
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(0.0f, -1.5f, -2.0f);
+	glScalef(0.9f, 2.3f, 1.2f);
+	glRotatef(270.0f, 0.0f, 0.0f, 0.0f);
+	clouds();
+	glPopMatrix();
+	glPushMatrix();
+	glRotatef(-30.0f, 1.0f, 0.0f, 1.0f);
+	glTranslatef(0.0f, -1.5f, -2.0f);
+	glScalef(2.0f, 4.3f, 2.2f);
+	glPushMatrix();
+	glTranslatef(0.0f, -1.0f, 0.0f);
+	glScalef(1.35f, 1.35f, 1.35f);
+	glRotatef(30.0f, 0.0f, 1.0f, 0.0f);
+	cloud3("");
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(-2.0f, -1.0f, 0.0f);
+	glScalef(1.35f, 1.35f, 1.35f);
+	glRotatef(30.0f, 0.0f, 1.0f, 0.0f);
+	cloud3("");
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(2.5f, 0.0f, 0.0f);
+	glScalef(1.35f, 1.35f, 1.35f);
+	glRotatef(-45.0f, 0.0f, 1.0f, 0.0f);
+	cloud3("");
+	glPopMatrix();
+	glPopMatrix();
+}
+
+void scene() {
+	glPushMatrix();
+	glEnable(GL_NORMALIZE);
+	glEnable(GL_COLOR_MATERIAL);
+
+	addMaterial(WHITE_MATTE);
+
+	// wall ledge
+	glColor3f(mediumPurple.r, mediumPurple.g, mediumPurple.b);
+	wallLedge("");
+
+	// tower
+	glColor3f(lightBrown.r, lightBrown.g, lightBrown.b);
+	rightTower();
+	leftTower();
+	tower();
+	towerBasePlate();
 
 	// orb
+	//glEnable(GL_BLEND);
+	//glColor4f(0.5f, 0.5f, 1.0f, 0.5f);
+	//glPushMatrix();
+	//glTranslatef(0.0f, 0.0f, 4.0f);
+	//glScalef(1.0f, 1.0f, 1.0f);
+	//glRotatef(69.0f, 0.0f, 1.0f, 1.0f);
+	//deformedCube("");
+	//glPopMatrix();
+	//glDisable(GL_BLEND);
+	glColor3f(oliveGreen.r, oliveGreen.g, oliveGreen.b);
+	orbHolder();
 
-	glColor4f(0.5f, 0.5f, 1.0f, 0.5f);
+	//glColor3f(goldenrod.r, goldenrod.g, goldenrod.b);
+	//glPushMatrix();
+	//glTranslatef(0.0f, 0.0f, -4.0f);
+	//glScalef(3.5f, 4.0f, 3.5f);
+	//hexagonOpenWall("");
+	//glPopMatrix();
+
+
+	// stairs
+	glColor3f(steelBlue.r, steelBlue.g, steelBlue.b);
 	glPushMatrix();
-	glTranslatef(0.0f, 0.0f, 4.0f);
+	glTranslatef(4.0f, 0.0f, 2.0f);
 	glScalef(1.0f, 1.0f, 1.0f);
-	deformedCube("");
+	glRotatef(-60.0f, 0.0f, 1.0f, 0.0f);
+	stairs();
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(-4.0f, 0.0f, 2.0f);
+	glScalef(1.0f, 1.0f, 1.0f);
+	glRotatef(60.0f, 0.0f, 1.0f, 0.0f);
+	stairs();
 	glPopMatrix();
 
+	// rocks
+
+	glColor3f(salmon.r, salmon.g, salmon.b);
+	rockSet();
+
+	// 3 panel base
+	glColor3f(sienna.r, sienna.g, sienna.b);
+	threePanelBase();
+
 	// clouds
-
 	glColor3f(lightGray.r, lightGray.g, lightGray.b);
-
-	//glPushMatrix();
-	//glTranslatef(-6.0f, 0.0f, 0.0f);
-	//glScalef(1.35f, 1.35f, 1.35f);
-	//glRotatef(30.0f, 0.0f, 1.0f, 0.0f);
-	//cloud3("");
-	//glPopMatrix();
-
-	//glPushMatrix();
-	//glTranslatef(5.0f, -3.0f, 0.0f);
-	//glScalef(0.35f, 0.35f, 0.35f);
-	//glRotatef(0.0f, 0.0f, 1.0f, 0.2f);
-	//cloud1("");
-	//glPopMatrix();
-
-	//glPushMatrix();
-	//glTranslatef(12.0f, -3.5f, 2.0f);
-	//glScalef(0.35f, 0.46f, 0.35f);
-	//glRotatef(45.0f, 0.0f, 1.0f, 0.0f);
-	//cloud2("");
-	//glPopMatrix();
-
-	//glPushMatrix();
-	//glTranslatef(-9.0f, -3.0f, 5.0f);
-	//glScalef(0.45f, 0.25f, 0.35f);
-	//glRotatef(-186.0f, 0.0f, 1.0f, 0.15f);
-	//cloud2("");
-	//glPopMatrix();
-
-	//glPushMatrix();
-	//glTranslatef(0.5f, -4.5f, 0.0f);
-	//glScalef(0.85f, 0.76f, 1.25f);
-	//glRotatef(15.0f, 0.0f, 1.0f, 0.0f);
-	//cloud2("");
-	//glPopMatrix();
+	//glColor4f(0.5f, 0.5f, 1.0f, 0.5f);
+	cloudSet();
 
 	//sceneMap();
 
