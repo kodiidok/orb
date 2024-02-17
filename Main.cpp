@@ -26,7 +26,7 @@ float cam_rotx = 0.0f, cam_roty = 0.0f, cam_rotz = 0.0f;
 
 float fovy = 90.0f, aspect = win_w / win_h, zNear = 0.1, zfar = 100.0f;
 
-RGBcolor lightGray = { 0.75f, 0.75f, 0.75f };      // Light Gray
+RGBcolor lightGray = { 0.90f, 0.90f, 0.90f };      // Light Gray
 RGBcolor mediumGray = { 0.5f, 0.5f, 0.5f };        // Medium Gray
 RGBcolor darkGray = { 0.25f, 0.25f, 0.25f };        // Dark Gray
 RGBcolor lightBrown = { 0.7f, 0.5f, 0.25f };       // Light Brown
@@ -55,12 +55,14 @@ void init() {
 	glClearDepth(1);
 	glEnable(GL_DEPTH_TEST);
 	glShadeModel(GL_SMOOTH);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
+	glEnable(GL_BLEND);
 	textures();
 }
 
 void camera() {
 
-	float eyex = 0.0f, eyey = 0.0f, eyez = 4.0f;
+	float eyex = 0.0f, eyey = 2.0f, eyez = 8.0f;
 	float centerx = 0.0f, centery = 0.0f, centerz = 0.0f;
 	float upx = 0.0f, upy = 1.0f, upz = 0.0f;
 
@@ -89,6 +91,10 @@ void lights() {
 	vector<GLfloat> dir0 = { 0.0f, -1.0f, -1.0f, 1.0f };
 	GLfloat cutoff0 = 120.0f;
 	spotLight(GL_LIGHT0, pos0, diff0, dir0, cutoff0);
+
+	vector<GLfloat> pos1 = { 0.0f, 0.0f, 4.0f, 1.0f };
+	vector<GLfloat> diff1 = { 1.0f, 1.0f, 0.0f, 1.0f };
+	pointLight(GL_LIGHT1, pos1, diff1);
 }
 
 void posIndicator(Point3D& pos) {
@@ -242,6 +248,52 @@ void scene() {
 
 	//rocks();
 
+	// right tower
+
+	glPushMatrix();
+	glTranslatef(5.0f, -2.0f, 3.0f);
+	glRotatef(0.0f, 0.0f, 0.0f, 0.0f);
+	glScalef(0.7f, 1.0f, 0.7f);
+
+	glColor3f(lightBrown.r, lightBrown.g, lightBrown.b);
+	glPushMatrix();
+	glTranslatef(0.0f, 0.0f, -7.0f);
+	glScalef(0.75f, 3.0f, 0.75f);
+	hexagonOpenWall("");
+	glPopMatrix();
+
+	glColor3f(plum.r, plum.g, plum.b);
+	glPushMatrix();
+	glTranslatef(0.0f, 2.2f, -7.0f);
+	glScalef(2.5f, 0.5f, 2.5f);
+	hexagonBlock("");
+	glPopMatrix();
+
+	glPopMatrix();
+
+	// left tower
+
+	glPushMatrix();
+	glTranslatef(-5.0f, -2.0f, 3.0f);
+	glRotatef(0.0f, 0.0f, 0.0f, 0.0f);
+	glScalef(0.7f, 1.0f, 0.7f);
+
+	glColor3f(lightBrown.r, lightBrown.g, lightBrown.b);
+	glPushMatrix();
+	glTranslatef(0.0f, 0.0f, -7.0f);
+	glScalef(0.75f, 3.0f, 0.75f);
+	hexagonOpenWall("");
+	glPopMatrix();
+
+	glColor3f(plum.r, plum.g, plum.b);
+	glPushMatrix();
+	glTranslatef(0.0f, 2.2f, -7.0f);
+	glScalef(2.5f, 0.5f, 2.5f);
+	hexagonBlock("");
+	glPopMatrix();
+
+	glPopMatrix();
+
 	// tower
 
 	glColor3f(lightBrown.r, lightBrown.g, lightBrown.b);
@@ -290,17 +342,69 @@ void scene() {
 	hexagonBlock("");
 	glPopMatrix();
 
+	// stairs
+
 	glColor3f(steelBlue.r, steelBlue.g, steelBlue.b);
+	
+	//stairs();
+
+	glPushMatrix();
+	glTranslatef(4.0f, 0.0f, 2.0f);
+	glScalef(1.0f, 1.0f, 1.0f);
+	glRotatef(-60.0f, 0.0f, 1.0f, 0.0f);
 	stairs();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-4.0f, 0.0f, 2.0f);
+	glScalef(1.0f, 1.0f, 1.0f);
+	glRotatef(60.0f, 0.0f, 1.0f, 0.0f);
+	stairs();
+	glPopMatrix();
 
 	// rocks
 
 	glColor3f(salmon.r, salmon.g, salmon.b);
 	
 	glPushMatrix();
+	glTranslatef(4.0f, -2.0f, -1.0f);
+	glScalef(2.0f, 3.0f, 2.0f);
+	glRotatef(90.0f, 0.5f, 1.0f, 1.0f);
+	rock5("");
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-4.0f, -2.0f, -1.0f);
+	glScalef(2.0f, 3.0f, 2.0f);
+	glRotatef(28.0f, 0.0f, 1.0f, 0.0f);
+	rock4("");
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-5.0f, -2.0f, -3.0f);
+	glScalef(3.0f, 5.0f, 2.0f);
+	glRotatef(28.0f, 1.0f, 1.0f, 0.0f);
+	rock2("");
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(5.0f, -3.0f, -3.0f);
+	glScalef(3.0f, 5.0f, 2.0f);
+	glRotatef(84.0f, 1.0f, 0.0f, 1.0f);
+	rock2("");
+	glPopMatrix();
+
+	glPushMatrix();
 	glTranslatef(-3.0f, -2.0f, -6.0f);
 	glScalef(4.0f, 6.0f, 3.0f);
 	glRotatef(38.0f, 1.0f, 1.0f, 0.0f);
+	rock3("");
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(3.0f, -2.0f, -6.0f);
+	glScalef(4.0f, 6.0f, 3.0f);
+	glRotatef(69.0f, 0.0f, 1.0f, 1.0f);
 	rock3("");
 	glPopMatrix();
 
@@ -325,6 +429,54 @@ void scene() {
 	glScalef(8.5f, 0.35f, 8.5f);
 	hexagonWalkPath("");
 	glPopMatrix();
+
+	// orb
+
+	glColor4f(0.5f, 0.5f, 1.0f, 0.5f);
+	glPushMatrix();
+	glTranslatef(0.0f, 0.0f, 4.0f);
+	glScalef(1.0f, 1.0f, 1.0f);
+	deformedCube("");
+	glPopMatrix();
+
+	// clouds
+
+	glColor3f(lightGray.r, lightGray.g, lightGray.b);
+
+	//glPushMatrix();
+	//glTranslatef(-6.0f, 0.0f, 0.0f);
+	//glScalef(1.35f, 1.35f, 1.35f);
+	//glRotatef(30.0f, 0.0f, 1.0f, 0.0f);
+	//cloud3("");
+	//glPopMatrix();
+
+	//glPushMatrix();
+	//glTranslatef(5.0f, -3.0f, 0.0f);
+	//glScalef(0.35f, 0.35f, 0.35f);
+	//glRotatef(0.0f, 0.0f, 1.0f, 0.2f);
+	//cloud1("");
+	//glPopMatrix();
+
+	//glPushMatrix();
+	//glTranslatef(12.0f, -3.5f, 2.0f);
+	//glScalef(0.35f, 0.46f, 0.35f);
+	//glRotatef(45.0f, 0.0f, 1.0f, 0.0f);
+	//cloud2("");
+	//glPopMatrix();
+
+	//glPushMatrix();
+	//glTranslatef(-9.0f, -3.0f, 5.0f);
+	//glScalef(0.45f, 0.25f, 0.35f);
+	//glRotatef(-186.0f, 0.0f, 1.0f, 0.15f);
+	//cloud2("");
+	//glPopMatrix();
+
+	//glPushMatrix();
+	//glTranslatef(0.5f, -4.5f, 0.0f);
+	//glScalef(0.85f, 0.76f, 1.25f);
+	//glRotatef(15.0f, 0.0f, 1.0f, 0.0f);
+	//cloud2("");
+	//glPopMatrix();
 
 	//sceneMap();
 

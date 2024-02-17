@@ -134,6 +134,15 @@
     <ClInclude Include="HexagonWalkPath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Cloud1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cloud2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cloud3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="temp.txt" />

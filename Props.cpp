@@ -2,43 +2,22 @@
 
 #include "Props.h"
 
-#include "Rock1.h"
-#include "Rock2.h"
-#include "Rock3.h"
-#include "Rock4.h"
-#include "Rock5.h"
-
-#include "HexagonBase.h"
-#include "HexagonBlock.h"
-#include "HexagonOpenWall.h"
-#include "HollowHexagonBase.h"
-#include "HollowHexagon2.h"
-#include "HexagonWalkPath.h"
-
-#include "DeformedCube.h"
-
-#include "StairsMiddle.h"
-#include "StairsSide.h"
-
-#include "WallLedge.h"
-
 #include <string>
 #include <GL/glut.h>
 #include "Utils.h"
-
 
 void createProp(Mesh& mesh, const std::string& textureFilename = "", float rot = 0.0f) {
     if (!textureFilename.empty()) {
         GLuint textureID = Textures::loadTexture(textureFilename);
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, textureID);
-    }
 
-    // Set texture parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        // Set texture parameters
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    }
 
     float textureScale = 0.07f;
 
@@ -141,6 +120,26 @@ void wallLedge(const std::string& textureFilename = "") {
     createProp(mesh, textureFilename, -90.0f);
 }
 
+void cloud1(const std::string& textureFilename = "") {
+    Cloud1 cloud1;
+    Mesh mesh = cloud1.init();
+
+    createProp(mesh, textureFilename, 0.0f);
+}
+
+void cloud2(const std::string& textureFilename = "") {
+    Cloud2 cloud2;
+    Mesh mesh = cloud2.init();
+
+    createProp(mesh, textureFilename, 0.0f);
+}
+
+void cloud3(const std::string& textureFilename = "") {
+    Cloud3 cloud3;
+    Mesh mesh = cloud3.init();
+
+    createProp(mesh, textureFilename, 0.0f);
+}
 
 void deformedCube(const std::string& textureFilename = "") {
     DeformedCube deformedCube;

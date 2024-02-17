@@ -149,6 +149,9 @@
   <ItemGroup>
     <ClInclude Include="Axes.h" />
     <ClInclude Include="Castle.h" />
+    <ClInclude Include="Cloud1.h" />
+    <ClInclude Include="Cloud2.h" />
+    <ClInclude Include="Cloud3.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Cube.h" />
