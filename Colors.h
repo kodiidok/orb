@@ -8,4 +8,5 @@ struct RGBcolor
 	float r, g, b;
 };
 
+
 #endif

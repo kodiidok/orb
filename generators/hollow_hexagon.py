@@ -4,7 +4,7 @@ import random
 def generate_hexagon_vertices(radius, deformation_factor=0.05, seed=None):
     random.seed(seed)
     vertices = []
-    for i in range(6):
+    for i in range(4):
         angle_rad = math.radians(60 * i)
         x = round(radius * math.cos(angle_rad), 3) + random.uniform(-deformation_factor, deformation_factor)
         y = random.uniform(-deformation_factor, deformation_factor)
@@ -29,7 +29,7 @@ def generate_stacked_hexagons(num_hexagons, base_radius, gaps, deformation_facto
 # Set parameters
 num_hexagons = 4
 base_radius = 1.0
-scale = [1.0, 0.6, 1.0, 0.6]
+scale = [1.0, 0.45, 1.0, 0.45]
 gaps = [0.0, 1.1, 0.02, 0.87]
 deformation_factor = 0.05
 seed_value = 29

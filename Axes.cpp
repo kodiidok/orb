@@ -1,6 +1,5 @@
 
 #include <GL/glut.h>
-#include "Colors.h"
 #include "Vertices.h"
 #include "Axes.h"
 

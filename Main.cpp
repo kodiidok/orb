@@ -26,6 +26,26 @@ float cam_rotx = 0.0f, cam_roty = 0.0f, cam_rotz = 0.0f;
 
 float fovy = 90.0f, aspect = win_w / win_h, zNear = 0.1, zfar = 100.0f;
 
+RGBcolor lightGray = { 0.75f, 0.75f, 0.75f };      // Light Gray
+RGBcolor mediumGray = { 0.5f, 0.5f, 0.5f };        // Medium Gray
+RGBcolor darkGray = { 0.25f, 0.25f, 0.25f };        // Dark Gray
+RGBcolor lightBrown = { 0.7f, 0.5f, 0.25f };       // Light Brown
+RGBcolor oliveGreen = { 0.5f, 0.5f, 0.0f };        // Olive Green
+RGBcolor steelBlue = { 0.27f, 0.51f, 0.71f };      // Steel Blue
+RGBcolor darkCyan = { 0.0f, 0.55f, 0.55f };        // Dark Cyan
+RGBcolor plum = { 0.87f, 0.63f, 0.87f };           // Plum
+RGBcolor sienna = { 0.63f, 0.32f, 0.18f };         // Sienna
+RGBcolor slateGray = { 0.44f, 0.5f, 0.56f };       // Slate Gray
+RGBcolor lightMagenta = { 0.77f, 0.56f, 0.77f };    // Light Magenta
+RGBcolor darkOliveGreen = { 0.33f, 0.42f, 0.18f };  // Dark Olive Green
+RGBcolor skyBlue = { 0.53f, 0.81f, 0.98f };         // Sky Blue
+RGBcolor darkSlateGray = { 0.18f, 0.31f, 0.31f };   // Dark Slate Gray
+RGBcolor salmon = { 0.98f, 0.5f, 0.45f };           // Salmon
+RGBcolor goldenrod = { 0.85f, 0.65f, 0.13f };       // Goldenrod
+RGBcolor mediumPurple = { 0.58f, 0.44f, 0.86f };    // Medium Purple
+RGBcolor chocolate = { 0.82f, 0.41f, 0.12f };      // Chocolate
+RGBcolor lightSlateGray = { 0.47f, 0.53f, 0.6f };   // Light Slate Gray
+
 void textures() {
 	Textures::setTextureFilePath("cliff_rocks_1_col", "assets/textures/cliff_rocks_01_1k/cliff_rocks_01_color_1k.png");
 }
@@ -187,11 +207,11 @@ void sceneMap() {
 	glPopMatrix();
 
 	// tower
-	glPushMatrix();
-	glTranslatef(0.0f, -0.2f, -7.0f);
-	glRotatef(-30.0f, 0.0f, 1.0f, 0.0f);
-	tower3({ 1.0f, 1.0f, 1.0f });
-	glPopMatrix();
+	//glPushMatrix();
+	//glTranslatef(0.0f, -0.2f, -7.0f);
+	//glRotatef(-30.0f, 0.0f, 1.0f, 0.0f);
+	//tower3({ 1.0f, 1.0f, 1.0f });
+	//glPopMatrix();
 
 	// back panel base
 	glPushMatrix();
@@ -200,43 +220,115 @@ void sceneMap() {
 	glPopMatrix();
 
 	// 3 panel base
-	glPushMatrix();
-	glTranslatef(0.0f, -2.0f, 0.0f);
-	glRotatef(-120.0f, 0.0f, 1.0f, 0.0f);
-	partialHexagonBlock(3, 0.0f, 0.0f, 8.0f, 3.0f, 4.0f);
-	glPopMatrix();
+	//glPushMatrix();
+	//glTranslatef(0.0f, -2.0f, 0.0f);
+	//glRotatef(-120.0f, 0.0f, 1.0f, 0.0f);
+	//partialHexagonBlock(3, 0.0f, 0.0f, 8.0f, 3.0f, 4.0f);
+	//glPopMatrix();
 
-	glPushMatrix();
-	glTranslatef(0.0f, -4.0f, 0.0f);
-	glRotatef(-120.0f, 0.0f, 1.0f, 0.0f);
-	partialHexagonBlock(6, 0.0f, 0.0f, 8.0f, 1.0f, 4.0f);
-	glPopMatrix();
+	//glPushMatrix();
+	//glTranslatef(0.0f, -4.0f, 0.0f);
+	//glRotatef(-120.0f, 0.0f, 1.0f, 0.0f);
+	//partialHexagonBlock(6, 0.0f, 0.0f, 8.0f, 1.0f, 4.0f);
+	//glPopMatrix();
 }
 
 void scene() {
 	glPushMatrix();
 	glEnable(GL_NORMALIZE);
+	glEnable(GL_COLOR_MATERIAL);
 
 	addMaterial(WHITE_MATTE);
 
 	//rocks();
 
-	//hexagonBase("");
-	
-	//hexagonBlock("");
+	// tower
 
+	glColor3f(lightBrown.r, lightBrown.g, lightBrown.b);
+	glPushMatrix();
+	glTranslatef(0.0f, 0.0f, -7.0f);
+	glScalef(0.75f, 3.0f, 0.75f);
+	hexagonOpenWall("");
+	glPopMatrix();
+
+	glColor3f(plum.r, plum.g, plum.b);
+	glPushMatrix();
+	glTranslatef(0.0f, 2.2f, -7.0f);
+	glScalef(2.5f, 0.5f, 2.5f);
+	hexagonBlock("");
+	glPopMatrix();
+
+	glColor3f(lightBrown.r, lightBrown.g, lightBrown.b);
+	glPushMatrix();
+	glTranslatef(0.0f, -3.0f, -7.0f);
+	glScalef(0.75f, 3.0f, 0.75f);
+	hexagonOpenWall("");
+	glPopMatrix();
+
+	//glColor3f(goldenrod.r, goldenrod.g, goldenrod.b);
+	//glPushMatrix();
+	//glTranslatef(0.0f, 0.0f, -4.0f);
+	//glScalef(3.5f, 4.0f, 3.5f);
 	//hexagonOpenWall("");
+	//glPopMatrix();
 
-	//hollowHexagon("");
+	// tower base plate
 
-	//deformedCube("");
+	glColor3f(sienna.r, sienna.g, sienna.b);
+	glPushMatrix();
+	glTranslatef(0.0f, -5.7f, -7.0f);
+	glScalef(4.0f, 3.0f, 4.0f);
+	hexagonBlock("");
+	glPopMatrix();
 
-	//stairs();
+	// orb holder
 
-	//wallLedge("");
+	glColor3f(oliveGreen.r, oliveGreen.g, oliveGreen.b);
+	glPushMatrix();
+	glTranslatef(0.0f, -4.0f, 4.0f);
+	glScalef(2.0f, 1.0f, 2.0f);
+	hexagonBlock("");
+	glPopMatrix();
+
+	glColor3f(steelBlue.r, steelBlue.g, steelBlue.b);
+	stairs();
+
+	// rocks
+
+	glColor3f(salmon.r, salmon.g, salmon.b);
+	
+	glPushMatrix();
+	glTranslatef(-3.0f, -2.0f, -6.0f);
+	glScalef(4.0f, 6.0f, 3.0f);
+	glRotatef(38.0f, 1.0f, 1.0f, 0.0f);
+	rock3("");
+	glPopMatrix();
+
+	// 3 panel base
+
+	glColor3f(sienna.r, sienna.g, sienna.b);
+	
+	glPushMatrix();
+	glTranslatef(0.0f, -4.0f, 0.0f);
+	glScalef(8.5f, 0.35f, 8.5f);
+	hexagonWalkPath("");
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0f, -4.5f, 1.0f);
+	glScalef(8.5f, 0.35f, 8.5f);
+	hexagonWalkPath("");
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0f, -5.0f, 2.0f);
+	glScalef(8.5f, 0.35f, 8.5f);
+	hexagonWalkPath("");
+	glPopMatrix();
 
 	//sceneMap();
 
+	glDisable(GL_COLOR_MATERIAL);
 	glDisable(GL_NORMALIZE);
 	glPopMatrix();
 }

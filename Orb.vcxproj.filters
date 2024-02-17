@@ -128,6 +128,12 @@
     <ClInclude Include="HexagonBlock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HollowHexagon2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HexagonWalkPath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="temp.txt" />

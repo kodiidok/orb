@@ -1,0 +1,8 @@
+mesh.vertex({0.094f, 0.398f, 0.149f});
+mesh.vertex({-0.094f, -0.398f, -0.119f});
+mesh.vertex({0.094f, -0.398f, -0.119f});
+mesh.vertex({0.094f, -0.398f, 0.149f});
+mesh.vertex({0.094f, 0.398f, -0.119f});
+mesh.vertex({-0.094f, 0.398f, -0.119f});
+mesh.vertex({-0.094f, -0.398f, 0.09f});
+mesh.vertex({-0.094f, 0.398f, 0.09f});

@@ -12,6 +12,8 @@
 #include "HexagonBlock.h"
 #include "HexagonOpenWall.h"
 #include "HollowHexagonBase.h"
+#include "HollowHexagon2.h"
+#include "HexagonWalkPath.h"
 
 #include "DeformedCube.h"
 
@@ -51,10 +53,10 @@ void createProp(Mesh& mesh, const std::string& textureFilename = "", float rot =
     //const auto& normals = mesh.getNormals();
 
     // Draw labels for each vertex
-    for (size_t i = 0; i < vertices.size(); ++i) {
-        const auto& vertex = vertices[i];
-        drawLabel(std::to_string(i), vertex.x, vertex.y, vertex.z);
-    }
+    //for (size_t i = 0; i < vertices.size(); ++i) {
+    //    const auto& vertex = vertices[i];
+    //    drawLabel(std::to_string(i), vertex.x, vertex.y, vertex.z);
+    //}
 
     // Set wireframe drawing mode
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -168,10 +170,25 @@ void hollowHexagon(const std::string& textureFilename = "") {
     createProp(mesh, textureFilename, 0.0f);
 }
 
-void hexagonOpenWall(const std::string& textureFilename)
+void hollowHexagon2(const std::string& textureFilename = "") {
+    HollowHexagon2 hollowHexagon2;
+    Mesh mesh = hollowHexagon2.init();
+
+    createProp(mesh, textureFilename, 0.0f);
+}
+
+void hexagonOpenWall(const std::string& textureFilename = "")
 {
     HexagonOpenWall hexagonOpenWall;
     Mesh mesh = hexagonOpenWall.init();
+
+    createProp(mesh, textureFilename, 0.0f);
+}
+
+void hexagonWalkPath(const std::string& textureFilename = "")
+{
+    HexagonWalkPath hexagonWalkPath;
+    Mesh mesh = hexagonWalkPath.init();
 
     createProp(mesh, textureFilename, 0.0f);
 }

@@ -1,0 +1,5 @@
+mesh.normal({1.0f, 0.0f, 0.0f});
+mesh.normal({0.0f, 1.0f, -0.0f});
+mesh.normal({-1.0f, -0.0f, -0.0f});
+mesh.normal({0.0f, -1.0f, 0.0f});
+mesh.normal({-0.298f, -0.0f, 0.954f});

@@ -1,0 +1,8 @@
+mesh.texcoord({0.361f, 0.766f});
+mesh.texcoord({0.327f, 0.766f});
+mesh.texcoord({0.327f, 0.8f});
+mesh.texcoord({0.361f, 0.8f});
+mesh.texcoord({0.361f, 0.766f});
+mesh.texcoord({0.327f, 0.766f});
+mesh.texcoord({0.327f, 0.8f});
+mesh.texcoord({0.361f, 0.8f});

@@ -1,0 +1,5 @@
+mesh.face({ {0, 3, 2, 4} });
+mesh.face({ {7, 0, 4, 5} });
+mesh.face({ {5, 1, 6, 7} });
+mesh.face({ {3, 6, 1, 2} });
+mesh.face({ {0, 7, 6, 3} });
