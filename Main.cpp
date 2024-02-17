@@ -225,7 +225,7 @@ void scene() {
 	
 	//hexagonBlock("");
 
-	hexagonOpenWall("");
+	//hexagonOpenWall("");
 
 	//hollowHexagon("");
 
