@@ -50,7 +50,7 @@ void cloud1(const std::string& textureFilename);
 void cloud2(const std::string& textureFilename);
 void cloud3(const std::string& textureFilename);
 
-void stairs();
+void stairs(float rot, int dir);
 
 void stairsMiddle(const std::string& textureFilename);
 void stairsSide(const std::string& textureFilename);

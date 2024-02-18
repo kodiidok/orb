@@ -46,6 +46,10 @@ RGBcolor mediumPurple = { 0.58f, 0.44f, 0.86f };    // Medium Purple
 RGBcolor chocolate = { 0.82f, 0.41f, 0.12f };      // Chocolate
 RGBcolor lightSlateGray = { 0.47f, 0.53f, 0.6f };   // Light Slate Gray
 
+float stair_rot = 0.0f;
+float tower_pos = 0.0f;
+float cloud_pos = 0.0f, cloud_rot = 0.0f;
+
 void textures() {
 	Textures::setTextureFilePath("cliff_rocks_1_col", "assets/textures/cliff_rocks_01_1k/cliff_rocks_01_color_1k.png");
 }
@@ -419,47 +423,60 @@ void threePanelBase() {
 	glPopMatrix();
 }
 
-void cloudSet() {
+void cloudSet(float pos, float rot) {
+	glPushMatrix();
+	glTranslatef(0.0f, pos, 0.0f);
+	glRotatef(rot, 0.0f, 0.0f, 0.0f);
+
 	glPushMatrix();
 	glTranslatef(0.0f, 0.0f, 0.0f);
 	glScalef(1.0f, 1.0f, 1.0f);
 	glRotatef(0.0f, 0.0f, 1.0f, 0.0f);
 	clouds();
 	glPopMatrix();
+
 	glPushMatrix();
 	glTranslatef(0.0f, 0.0f, 0.0f);
 	glScalef(1.6f, 1.3f, 1.2f);
 	glRotatef(120.0f, 0.0f, 0.0f, 0.0f);
 	clouds();
 	glPopMatrix();
+
 	glPushMatrix();
 	glTranslatef(0.0f, -1.5f, -2.0f);
 	glScalef(0.9f, 2.3f, 1.2f);
 	glRotatef(270.0f, 0.0f, 0.0f, 0.0f);
 	clouds();
 	glPopMatrix();
+
 	glPushMatrix();
 	glRotatef(-30.0f, 1.0f, 0.0f, 1.0f);
 	glTranslatef(0.0f, -1.5f, -2.0f);
 	glScalef(2.0f, 4.3f, 2.2f);
+
 	glPushMatrix();
 	glTranslatef(0.0f, -1.0f, 0.0f);
 	glScalef(1.35f, 1.35f, 1.35f);
 	glRotatef(30.0f, 0.0f, 1.0f, 0.0f);
 	cloud3("");
 	glPopMatrix();
+
 	glPushMatrix();
 	glTranslatef(-2.0f, -1.0f, 0.0f);
 	glScalef(1.35f, 1.35f, 1.35f);
 	glRotatef(30.0f, 0.0f, 1.0f, 0.0f);
 	cloud3("");
 	glPopMatrix();
+
 	glPushMatrix();
 	glTranslatef(2.5f, 0.0f, 0.0f);
 	glScalef(1.35f, 1.35f, 1.35f);
 	glRotatef(-45.0f, 0.0f, 1.0f, 0.0f);
 	cloud3("");
 	glPopMatrix();
+
+	glPopMatrix();
+
 	glPopMatrix();
 }
 
@@ -476,9 +493,12 @@ void scene() {
 
 	// tower
 	glColor3f(lightBrown.r, lightBrown.g, lightBrown.b);
+	glPushMatrix();
+	glTranslatef(0.0f, tower_pos, 0.0f);
 	rightTower();
 	leftTower();
 	tower();
+	glPopMatrix();
 	towerBasePlate();
 
 	// orb
@@ -504,18 +524,23 @@ void scene() {
 
 	// stairs
 	glColor3f(steelBlue.r, steelBlue.g, steelBlue.b);
+	//glPushMatrix();
+	//glRotatef(stair_rot, 0.0f, 1.0f, 0.0f);
+
 	glPushMatrix();
 	glTranslatef(4.0f, 0.0f, 2.0f);
 	glScalef(1.0f, 1.0f, 1.0f);
 	glRotatef(-60.0f, 0.0f, 1.0f, 0.0f);
-	stairs();
+	stairs(stair_rot, 1);
 	glPopMatrix();
 	glPushMatrix();
 	glTranslatef(-4.0f, 0.0f, 2.0f);
 	glScalef(1.0f, 1.0f, 1.0f);
 	glRotatef(60.0f, 0.0f, 1.0f, 0.0f);
-	stairs();
+	stairs(stair_rot, -1);
 	glPopMatrix();
+
+	//glPopMatrix();
 
 	// rocks
 
@@ -529,7 +554,7 @@ void scene() {
 	// clouds
 	glColor3f(lightGray.r, lightGray.g, lightGray.b);
 	//glColor4f(0.5f, 0.5f, 1.0f, 0.5f);
-	cloudSet();
+	cloudSet(cloud_pos, cloud_rot);
 
 	//sceneMap();
 
@@ -620,6 +645,63 @@ void keyboard(unsigned char key, int x, int y) {
 	glutPostRedisplay();
 }
 
+void stairsAnimation(int value) {
+	stair_rot += 15.0f; 
+
+	if (stair_rot > 360.0f) {
+		stair_rot -= 360.0f;  // Keep the angle within a valid range
+	}
+
+	glutPostRedisplay(); 
+
+	glutTimerFunc(1000, stairsAnimation, 0);
+}
+
+void cloudsAnimation(int value) {
+	//cloud_rot += 1.0f; 
+
+	//if (cloud_rot > 360.0f) {
+	//	cloud_rot -= 360.0f;  // Keep the angle within a valid range
+	//}
+
+	// Update cloud position using a sine wave
+	//float amplitude = 0.5f;  // Adjust the amplitude of the sine wave
+	//float frequency = 0.5f;   // Adjust the frequency of the sine wave
+	//cloud_pos = amplitude * sin(cloud_rot * (M_PI / 180.0f) * frequency);
+
+	//glutPostRedisplay(); 
+
+	//glutTimerFunc(1000 / 60, cloudsAnimation, 0);
+}
+
+void towersAnimation(int value) {
+	static float tower_speed = 0.05f;
+	static float tower_threshold = 2.0f;
+	static bool move_forward = true;
+
+	if (move_forward) {
+		tower_pos += tower_speed;
+		if (tower_pos >= tower_threshold) {
+			tower_pos = tower_threshold;
+			move_forward = false;
+		}
+	}
+	else {
+		tower_pos -= tower_speed;
+		if (tower_pos <= 0) {
+			tower_pos = 0;
+			move_forward = true;
+		}
+	}
+
+	cout << tower_pos << '\n';
+
+	glutPostRedisplay(); 
+
+	glutTimerFunc(1000 / 60, towersAnimation, 0);
+}
+
+
 int main(int argc, char** argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH | GLUT_RGBA);
@@ -633,6 +715,10 @@ int main(int argc, char** argv) {
 
 	glutSpecialFunc(keyboardSpecial);
 	glutKeyboardFunc(keyboard);
+
+	glutTimerFunc(1000, stairsAnimation, 0);
+	glutTimerFunc(1000 / 60, cloudsAnimation, 0);
+	glutTimerFunc(1000 / 60, towersAnimation, 0);
 
 	init();
 	glutMainLoop();

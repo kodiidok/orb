@@ -29,7 +29,6 @@ void createProp(Mesh& mesh, const std::string& textureFilename = "", float rot =
     // Render the rock1 using the mesh data
     const auto& vertices = mesh.getVertices();
     const auto& faces = mesh.getFaces();
-    //const auto& normals = mesh.getNormals();
 
     // Draw labels for each vertex
     //for (size_t i = 0; i < vertices.size(); ++i) {
@@ -42,8 +41,16 @@ void createProp(Mesh& mesh, const std::string& textureFilename = "", float rot =
 
     for (const auto& face : faces) {
         glBegin(GL_POLYGON);
-        //const auto& normal = normals[face.getNormalIndex()]; // Assuming Face has a method to get normal index
-        //glNormal3f(normal.x, normal.y, normal.z);
+        
+        // Calculate normal vector for the face using your methods
+        Point3D p0 = vertices[face.vertices[0]];
+        Point3D p1 = vertices[face.vertices[1]];
+        Point3D p2 = vertices[face.vertices[2]];
+
+        Normal normal = getNormal(p0, p1, p2);
+
+        // Use normal vector as face normal
+        glNormal3f(normal.x, normal.y, normal.z);
 
         for (const auto& vertexIndex : face.vertices) {
             const auto& vertex = vertices[vertexIndex];
@@ -71,7 +78,7 @@ void createProp(Mesh& mesh, const std::string& textureFilename = "", float rot =
     }
 }
 
-void stairs() {
+void stairs(float rot, int dir) {
 
     glPushMatrix();
     //glScalef(s.x, s.y, s.z);
@@ -79,6 +86,7 @@ void stairs() {
     for (int i = 0; i < 5; i++) {
         glPushMatrix();
         glTranslatef(0.0f, i * -0.5f, i * 0.5f);
+        glRotatef(rot * dir, 0.0f, 1.0f, 0.0f);
         
         stairsMiddle("");
         glPushMatrix();
