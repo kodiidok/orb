@@ -33,7 +33,7 @@
 #include "Cloud2.h"
 #include "Cloud3.h"
 
-void createProp(Mesh& mesh, const std::string& textureFilename, float rot);
+void createProp(Mesh& mesh, const std::string& textureFilename, float rot, float textureScale);
 
 void hexagonBase(const std::string& textureFilename);
 void hexagonBlock(const std::string& textureFilename);
@@ -57,10 +57,10 @@ void stairsSide(const std::string& textureFilename);
 
 void rocks();
 
-void rock1(const std::string& textureFilename);
-void rock2(const std::string& textureFilename);
-void rock3(const std::string& textureFilename);
-void rock4(const std::string& textureFilename);
-void rock5(const std::string& textureFilename);
+void rock1(const std::string& textureFilename, float textureScale);
+void rock2(const std::string& textureFilename, float textureScale);
+void rock3(const std::string& textureFilename, float textureScale);
+void rock4(const std::string& textureFilename, float textureScale);
+void rock5(const std::string& textureFilename, float textureScale);
 
 #endif

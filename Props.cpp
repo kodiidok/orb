@@ -6,7 +6,7 @@
 #include <GL/glut.h>
 #include "Utils.h"
 
-void createProp(Mesh& mesh, const std::string& textureFilename = "", float rot = 0.0f) {
+void createProp(Mesh& mesh, const std::string& textureFilename = "", float rot = 0.0f, float textureScale = 0.5f) {
     if (!textureFilename.empty()) {
         GLuint textureID = Textures::loadTexture(textureFilename);
         glEnable(GL_TEXTURE_2D);
@@ -18,8 +18,6 @@ void createProp(Mesh& mesh, const std::string& textureFilename = "", float rot =
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     }
-
-    float textureScale = 0.07f;
 
     // Set up the model transformation
     glPushMatrix();
@@ -167,7 +165,7 @@ void hexagonBlock(const std::string& textureFilename = "") {
     HexagonBlock hexagonBlock;
     Mesh mesh = hexagonBlock.init();
 
-    createProp(mesh, textureFilename, 0.0f);
+    createProp(mesh, textureFilename, 0.5f);
 }
 
 void hollowHexagon(const std::string& textureFilename = "") {
@@ -206,55 +204,55 @@ void rocks() {
     glTranslatef(2.5f, -2.0f, 1.8f);
     glRotatef(0.0f, 0.0f, 0.0f, 0.0f);
     glScalef(1.0f, 1.0f, 1.0f);
-    rock1("cliff_rocks_1_col");
+    rock1("cliff_rocks_1_col", 0.5f);
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(3.0f, -2.0f, 3.0f);
     glRotatef(0.0f, 0.0f, 0.0f, 0.0f);
     glScalef(1.0f, 1.0f, 1.0f);
-    rock2("cliff_rocks_1_col");
+    rock2("cliff_rocks_1_col", 0.5f);
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(2.0f, 0.0f, 1.5f);
     glRotatef(30.0f, 0.0f, 1.0f, 0.0f);
     glScalef(1.0f, 3.0f, 2.0f);
-    rock4("cliff_rocks_1_col");
+    rock4("cliff_rocks_1_col", 0.5f);
     glPopMatrix();
 }
 
-void rock1(const std::string& textureFilename = "") {
+void rock1(const std::string& textureFilename = "", float textureScale = 0.5f) {
     Rock1 rock1;
     Mesh mesh = rock1.init();
 
-    createProp(mesh, textureFilename, -90.0f);
+    createProp(mesh, textureFilename, -90.0f, textureScale);
 }
 
-void rock2(const std::string& textureFilename = "") {
+void rock2(const std::string& textureFilename = "", float textureScale = 0.5f) {
     Rock2 rock2;
     Mesh mesh = rock2.init();
 
-    createProp(mesh, textureFilename, -90.0f);
+    createProp(mesh, textureFilename, -90.0f, textureScale);
 }
 
-void rock3(const std::string& textureFilename = "") {
+void rock3(const std::string& textureFilename = "", float textureScale = 0.5f) {
     Rock3 rock3;
     Mesh mesh = rock3.init();
 
-    createProp(mesh, textureFilename, -90.0f);
+    createProp(mesh, textureFilename, -90.0f, textureScale);
 }
 
-void rock4(const std::string& textureFilename = "") {
+void rock4(const std::string& textureFilename = "", float textureScale = 0.5f) {
     Rock4 rock4;
     Mesh mesh = rock4.init();
 
-    createProp(mesh, textureFilename, -90.0f);
+    createProp(mesh, textureFilename, -90.0f, textureScale);
 }
 
-void rock5(const std::string& textureFilename = "") {
+void rock5(const std::string& textureFilename = "", float textureScale = 0.5f) {
     Rock5 rock5;
     Mesh mesh = rock5.init();
 
-    createProp(mesh, textureFilename, -90.0f);
+    createProp(mesh, textureFilename, -90.0f, textureScale);
 }
