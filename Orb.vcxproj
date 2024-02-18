@@ -171,6 +171,7 @@
     <ClInclude Include="Rock3.h" />
     <ClInclude Include="Rock4.h" />
     <ClInclude Include="Rock5.h" />
+    <ClInclude Include="Roof.h" />
     <ClInclude Include="StairsMiddle.h" />
     <ClInclude Include="StairsSide.h" />
     <ClInclude Include="Textures.h" />

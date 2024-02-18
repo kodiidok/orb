@@ -126,6 +126,13 @@ void wallLedge(const std::string& textureFilename = "") {
     createProp(mesh, textureFilename, -90.0f);
 }
 
+void roof(const std::string& textureFilename = "") {
+    Roof roof;
+    Mesh mesh = roof.init();
+
+    createProp(mesh, textureFilename, 180.0f);
+}
+
 void cloud1(const std::string& textureFilename = "") {
     Cloud1 cloud1;
     Mesh mesh = cloud1.init();

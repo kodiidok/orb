@@ -33,6 +33,8 @@
 #include "Cloud2.h"
 #include "Cloud3.h"
 
+#include "Roof.h"
+
 void createProp(Mesh& mesh, const std::string& textureFilename, float rot, float textureScale);
 
 void hexagonBase(const std::string& textureFilename);
@@ -45,6 +47,8 @@ void hexagonWalkPath(const std::string& textureFilename);
 void deformedCube(const std::string& textureFilename);
 
 void wallLedge(const std::string& textureFilename);
+
+void roof(const std::string& textureFilename);
 
 void cloud1(const std::string& textureFilename);
 void cloud2(const std::string& textureFilename);

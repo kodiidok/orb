@@ -355,17 +355,18 @@ void clouds() {
 }
 
 void tower() {
+	// roof
+	glColor3f(salmon.r, salmon.g, salmon.b);
+	glPushMatrix();
+	glTranslatef(0.0f, 6.5f, -7.0f);
+	roof("");
+	glPopMatrix();
+
 	glPushMatrix();
 	glTranslatef(0.0f, 0.0f, -7.0f);
 	glScalef(0.75f, 3.0f, 0.75f);
 	hexagonOpenWall("stone_wall_03_col");
 	glPopMatrix();
-
-	//glPushMatrix();
-	//glTranslatef(0.0f, 2.2f, -7.0f);
-	//glScalef(2.5f, 0.5f, 2.5f);
-	//hexagonBlock("stone_wall_03_col");
-	//glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(0.0f, -3.0f, -7.0f);
@@ -556,10 +557,6 @@ void scene() {
 
 	addMaterial(WHITE_MATTE);
 
-	// wall ledge
-	//glColor3f(mediumPurple.r, mediumPurple.g, mediumPurple.b);
-	//wallLedge("");
-
 	// arch
 	arch(0.0f, 0.0f, 1.5f, 2.5f);
 
@@ -581,13 +578,9 @@ void scene() {
 	bridge();
 	glPopMatrix();
 	glPopMatrix();
-
-	//bridge();
-
 	towerBasePlate();
 
 	// orb
-	
 	//glEnable(GL_BLEND);
 	//glColor4f(0.5f, 0.5f, 1.0f, 0.5f);
 	//glPushMatrix();
@@ -598,34 +591,15 @@ void scene() {
 	//glPopMatrix();
 	//glDisable(GL_BLEND);
 
-	//glColor3f(goldenrod.r, goldenrod.g, goldenrod.b);
-	//glPushMatrix();
-	//glTranslatef(0.0f, 0.0f, 0.0f);
-	//glScalef(0.35f, 0.35f, 0.35f);
-	//glRotatef(69.0f, 0.0f, 1.0f, 1.0f);
-	//deformedCube("");
-	//glPopMatrix();
-
 	glColor3f(oliveGreen.r, oliveGreen.g, oliveGreen.b);
 	orbHolder();
 
-	//glColor3f(goldenrod.r, goldenrod.g, goldenrod.b);
-	//glPushMatrix();
-	//glTranslatef(0.0f, 0.0f, -4.0f);
-	//glScalef(3.5f, 4.0f, 3.5f);
-	//hexagonOpenWall("");
-	//glPopMatrix();
-
 	// stairs
 	glColor3f(steelBlue.r, steelBlue.g, steelBlue.b);
-	//glPushMatrix();
-	//glRotatef(stair_rot, 0.0f, 1.0f, 0.0f);
-	
 	glPushMatrix();
 	glTranslatef(0.0f, 0.0f, 4.0f);
 	stairs(0.0f, 1);
 	glPopMatrix();
-
 	glPushMatrix();
 	glTranslatef(4.0f, 0.0f, 2.0f);
 	glScalef(1.0f, 1.0f, 1.0f);
@@ -639,13 +613,11 @@ void scene() {
 	stairs(stair_rot, -1);
 	glPopMatrix();
 
-	//glPopMatrix();
-
 	// main bridge
 	glPushMatrix();
 	glTranslatef(0.0f, 0.0f, 2.0f);
 	glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < 1; i++) {
 		glPushMatrix();
 		glTranslatef(i * 1.0f, 0.0f, 0.0f);
 		bridge();
@@ -666,13 +638,6 @@ void scene() {
 	glColor3f(lightGray.r, lightGray.g, lightGray.b);
 	glColor4f(0.7f, 0.7f, 0.9f, 0.7f);
 	cloudSet(cloud_pos, cloud_rot);
-
-	//glPushMatrix();
-	//glTranslatef(-6.0f, 0.0f, 0.0f);
-	//glScalef(1.35f, 1.35f, 1.35f);
-	//glRotatef(30.0f, 0.0f, 1.0f, 0.0f);
-	//cloud3("");
-	//glPopMatrix();
 
 	//sceneMap();
 
